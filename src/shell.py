@@ -1,5 +1,5 @@
 import cmd
-import utils
+import src.utils as utils
 
 
 class ICCShell(cmd.Cmd):
@@ -54,13 +54,9 @@ class ICCShell(cmd.Cmd):
                 print("Could not find correct digit")
             else:
                 print(f"Correct digit is {result}")
-        except TypeError as exc:
+        except Exception as exc:
             print(exc)
 
 
 def parse_args(args):
     return tuple(args.split(' '))
-
-
-if __name__ == '__main__':
-    ICCShell().cmdloop()
