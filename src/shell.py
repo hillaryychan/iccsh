@@ -3,8 +3,9 @@ import src.utils as utils
 
 
 class ICCShell(cmd.Cmd):
-    intro = (' Welcome to the MATH3411 Shell.\n'
-             'Type help or ? to list commands. Type exit or ctrl-d to exit.')
+    intro = ('Welcome to the MATH3411 Shell.\n'
+             'Type "help" or "?" to list commands. '
+             'Type "exit" or ctrl-d to exit.')
     prompt = '\033[92m>\033[0m '
 
     def do_exit(self, args):

@@ -22,13 +22,15 @@ def is_isbn(number, *args, **kwargs):
 
 
 def isbn_fix(number, pos, *args, **kwargs):
-    number = get_isbn_digits(number)
-    if len(number) != 10:
-        raise ValueError("Not an ISBN-10 number")
+    digits = get_isbn_digits(number)
+    if len(digits) != 10:
+        raise ValueError(f"'{number}' is not an ISBN-10 number")
     pos = int(pos)
+    if not (1 <= pos <= 10):
+        raise ValueError(f"Can't have error in position {pos}")
 
     val = 0
-    for i, num in enumerate(number, 1):
+    for i, num in enumerate(digits, 1):
         if i != pos:
             val += i * num
 
