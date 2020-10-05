@@ -3,54 +3,12 @@ Function implementations of algorithms from MATH3411
 '''
 
 
-def gcd(x, y, *args, **kwargs):
-    '''
-    The greatest common divisor (gcd) of x and y
-    '''
-    pass
-
-
-def lcm(x, y, *args, **kwargs):
-    '''
-    The lowest common multiple (lcm) of x and y
-    '''
-    pass
-
-
-def mod(a, n, *args, **kwargs):
-    '''
-    The modulo operation. Returns the remainder of a division.
-    '''
-    print(f"{a} mod {n} = {a % n}")
-
-
-def mod_congruent(a, n, *args, **kwargs):
-    '''
-    The congruence relation between positve integer n, and two integers a and b
-    such that a ≡ b (mod n)
-    '''
-    print(f"{a} ≡ {a % n} (mod {n})")
-    pass
-
-
-def mod_inverse(a, n, *args, **kwargs):
-    '''
-    The modular multiplicative inverse of an integer a is an integer x such that
-    the product ax is congruent to 1 with respect to the modulus n.
-    This can be written as ax ≡ 1 (mod n)
-    '''
-    pass
-
-
 def get_isbn_digits(number):
-    number = list(filter(lambda x: int(x.isdigit()) or x == 'X', number))
+    number = list(filter(lambda x: x.isdigit() or x == 'X', number))
     return list(map(lambda x: int(x) if x.isdigit() else 10, number))
 
 
 def is_isbn(number, *args, **kwargs):
-    '''
-    Checks the ISBN-10 number is correct.
-    '''
     number = get_isbn_digits(number)
     # Must have 10 digits
     if len(number) != 10:
@@ -66,8 +24,7 @@ def is_isbn(number, *args, **kwargs):
 def isbn_fix(number, pos, *args, **kwargs):
     number = get_isbn_digits(number)
     if len(number) != 10:
-        print("Not an ISBN-10 number")
-        return
+        raise ValueError("Not an ISBN-10 number")
     pos = int(pos)
 
     val = 0
@@ -78,7 +35,19 @@ def isbn_fix(number, pos, *args, **kwargs):
     correct_digit = -1
     for i in range(11):
         if (val + i * pos) % 11 == 0:
-            correct_digit = i
+            correct_digit = i if i != 10 else 'X'
             break
 
     return correct_digit
+
+
+def get_weight(codewords, *args, **kwargs):
+    weights = []
+    for codeword in codewords:
+        digits = list(filter(lambda x: x.isdigit() and x != '0', codeword))
+        weights.append(len(digits))
+    return weights
+
+
+def get_distance(codeword1, codeword2, *args, **kwargs):
+    return sum(a != b for a, b in zip(codeword1, codeword2))
