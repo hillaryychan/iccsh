@@ -23,12 +23,16 @@ class ICCShell(cmd.Cmd):
 
     def do_is_isbn(self, args):
         '''
+        Usage: is_isbn ISBN
+
         Check a number satisfies the ISBN-10 check condition
         '''
         print(utils.is_isbn(*parse_args(args)))
 
     def do_isbn_fix(self, args):
         '''
+        Usage: isbn_fix ISBN ERROR_DIGIT
+
         Correct the nth digit in a given ISBN-10 number
         '''
         try:
@@ -42,6 +46,8 @@ class ICCShell(cmd.Cmd):
 
     def do_weight(self, args):
         '''
+        Usage: weight CODEWORD
+
         Find the weight of given codewords. That is, the distance between a
         codeword and the zero-codeword, or the number of non-zero values in each
         codeword.
@@ -53,11 +59,25 @@ class ICCShell(cmd.Cmd):
 
     def do_distance(self, args):
         '''
+        Usage: distance CODEWORD1 CODEWORD2
+
         Find the distance between two codewords. That is, the number of values
         that differ for each position in the codewords.
         '''
         result = utils.get_distance(*parse_args(args))
         print(f"Distance is {result}")
+
+    def do_congruence(self, args):
+        '''
+        Usage: congruence a m [b]
+
+        Evaluate linear congruences a*x ≡ b (mod m)
+        '''
+        args = list(map(lambda x: int(x), parse_args(args)))
+        target = args.pop(2) if len(args) > 2 else None
+        result = utils.eval_congruence(*args, b=target)
+        if result:
+            print(f"x is {result}")
 
 
 def parse_args(args):
