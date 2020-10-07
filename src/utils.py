@@ -60,7 +60,19 @@ def eval_congruence(a, m, *args, b=None, **kwargs):
         congruence = (a * i) % m
         if b is not None:
             if congruence == b:
-                print(f"{a}*{i} ≡ {congruence} (mod 7)")
+                print(f"{a}*{i} ≡ {congruence} (mod {m})")
                 return i
         else:
-            print(f"{a}*{i} ≡ {congruence} (mod 7)")
+            print(f"{a}*{i} ≡ {congruence} (mod {m})")
+
+
+def add_codewords(radix, *args, **kwargs):
+    all_digits = [list(map(int, codeword)) for codeword in args]
+    sum_digits = list(map(sum, zip(*all_digits)))
+    sum_digits = list(map(lambda x: str(x % 2), sum_digits))
+
+    for codeword in args:
+        print(codeword)
+    print('-'*len(sum_digits))
+
+    return ''.join(sum_digits)

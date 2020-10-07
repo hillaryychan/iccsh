@@ -73,11 +73,20 @@ class ICCShell(cmd.Cmd):
 
         Evaluate linear congruences a*x ≡ b (mod m)
         '''
-        args = list(map(lambda x: int(x), parse_args(args)))
+        args = list(map(int, parse_args(args)))
         target = args.pop(2) if len(args) > 2 else None
         result = utils.eval_congruence(*args, b=target)
         if result:
             print(f"x is {result}")
+
+    def do_add_codewords(self, args):
+        '''
+        Usage add_codewords RADIX CODEWORD1 CODEWORD2 [CODEWORDS...]
+
+        Add codewords of a given radix together
+        '''
+        result = utils.add_codewords(*parse_args(args))
+        print(result)
 
 
 def parse_args(args):
