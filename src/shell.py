@@ -43,6 +43,7 @@ class ICCShell(cmd.Cmd):
                 print(f"Correct digit is {result}")
         except Exception as exc:
             print(exc)
+            self.do_help('isbn_fix')
 
     def do_weight(self, args):
         '''
@@ -73,11 +74,15 @@ class ICCShell(cmd.Cmd):
 
         Evaluate linear congruences a*x ≡ b (mod m)
         '''
-        args = list(map(int, parse_args(args)))
-        target = args.pop(2) if len(args) > 2 else None
-        result = utils.eval_congruence(*args, b=target)
-        if result:
-            print(f"x is {result}")
+        try:
+            args = list(map(int, parse_args(args)))
+            target = args.pop(2) if len(args) > 2 else None
+            result = utils.eval_congruence(*args, b=target)
+            if result:
+                print(f"x is {result}")
+        except Exception as exc:
+            print(exc)
+            self.do_help('congruence')
 
     def do_add_codewords(self, args):
         '''
@@ -85,8 +90,12 @@ class ICCShell(cmd.Cmd):
 
         Add codewords of a given radix together
         '''
-        result = utils.add_codewords(*parse_args(args))
-        print(result)
+        try:
+            result = utils.add_codewords(*parse_args(args))
+            print(result)
+        except Exception as exc:
+            print(exc)
+            self.do_help('add_codewords')
 
 
 def parse_args(args):
