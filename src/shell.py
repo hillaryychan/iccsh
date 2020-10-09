@@ -1,12 +1,26 @@
 import cmd
 import src.utils as utils
 
+from colorama import Fore
+from functools import wraps
+
+
+def do_help_on_error(func):
+    @wraps(func)
+    def wrapper(self, *args, **kwargs):
+        try:
+            func(self, *args, **kwargs)
+        except Exception as exc:
+            print(f"{Fore.RED}{type(exc).__name__}: {exc}{Fore.RESET}")
+            self.do_help(func.__name__[3:])
+    return wrapper
+
 
 class ICCShell(cmd.Cmd):
     intro = ('Welcome to the MATH3411 Shell.\n'
              'Type "help" or "?" to list commands. '
              'Type "exit" or ctrl-d to exit.')
-    prompt = '\033[92m>\033[0m '
+    prompt = f"{Fore.GREEN}> {Fore.RESET}"
 
     def do_exit(self, args):
         '''
@@ -29,21 +43,18 @@ class ICCShell(cmd.Cmd):
         '''
         print(utils.is_isbn(*parse_args(args)))
 
+    @do_help_on_error
     def do_isbn_fix(self, args):
         '''
         Usage: isbn_fix ISBN ERROR_DIGIT
 
         Correct the nth digit in a given ISBN-10 number
         '''
-        try:
-            result = utils.isbn_fix(*parse_args(args))
-            if result == -1:
-                print("Could not find correct digit")
-            else:
-                print(f"Correct digit is {result}")
-        except Exception as exc:
-            print(exc)
-            self.do_help('isbn_fix')
+        result = utils.isbn_fix(*parse_args(args))
+        if result != -1:
+            print(f"Correct digit is {result}")
+        else:
+            print("Could not find correct digit")
 
     def do_weight(self, args):
         '''
@@ -68,34 +79,28 @@ class ICCShell(cmd.Cmd):
         result = utils.get_distance(*parse_args(args))
         print(f"Distance is {result}")
 
+    @do_help_on_error
     def do_congruence(self, args):
         '''
         Usage: congruence a m [b]
 
         Evaluate linear congruences a*x ≡ b (mod m)
         '''
-        try:
-            args = list(map(int, parse_args(args)))
-            target = args.pop(2) if len(args) > 2 else None
-            result = utils.eval_congruence(*args, b=target)
-            if result:
-                print(f"x is {result}")
-        except Exception as exc:
-            print(exc)
-            self.do_help('congruence')
+        args = list(map(int, parse_args(args)))
+        target = args.pop(2) if len(args) > 2 else None
+        result = utils.eval_congruence(*args, b=target)
+        if result:
+            print(f"x is {result}")
 
+    @do_help_on_error
     def do_add_codewords(self, args):
         '''
-        Usage add_codewords RADIX CODEWORD1 CODEWORD2 [CODEWORDS...]
+        Usage: add_codewords RADIX CODEWORD1 CODEWORD2 [CODEWORDS...]
 
         Add codewords of a given radix together
         '''
-        try:
-            result = utils.add_codewords(*parse_args(args))
-            print(result)
-        except Exception as exc:
-            print(exc)
-            self.do_help('add_codewords')
+        result = utils.add_codewords(*parse_args(args))
+        print(result)
 
 
 def parse_args(args):
