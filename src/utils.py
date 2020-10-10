@@ -64,6 +64,7 @@ def eval_congruence(a, m, *args, b=None, **kwargs):
                 return i
         else:
             print(f"{a}*{i} ≡ {congruence} (mod {m})")
+    return None
 
 
 def add_codewords(radix, *args, **kwargs):

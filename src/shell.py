@@ -89,7 +89,7 @@ class ICCShell(cmd.Cmd):
         args = list(map(int, parse_args(args)))
         target = args.pop(2) if len(args) > 2 else None
         result = utils.eval_congruence(*args, b=target)
-        if result:
+        if result is not None:
             print(f"x is {result}")
 
     @do_help_on_error
