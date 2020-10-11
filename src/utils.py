@@ -69,8 +69,8 @@ def eval_congruence(a, m, *args, b=None, **kwargs):
 
 def add_codewords(radix, *args, **kwargs):
     radix = int(radix)
-    all_digits = [list(map(int, codeword)) for codeword in args]
-    sum_digits = list(map(sum, zip(*all_digits)))
+    all_digits = [map(int, codeword) for codeword in args]
+    sum_digits = map(sum, zip(*all_digits))
     sum_digits = list(map(lambda x: str(x % radix), sum_digits))
 
     for codeword in args:

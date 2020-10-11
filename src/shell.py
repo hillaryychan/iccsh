@@ -24,14 +24,14 @@ class ICCShell(cmd.Cmd):
 
     def do_exit(self, args):
         '''
-        Exit MATH3411 shell
+        Exit MATH3411 shell.
         '''
         print()
         return True
 
     def do_EOF(self, args):
         '''
-        Exit MATH3411 shell
+        Exit MATH3411 shell.
         '''
         return self.do_exit(args)
 
@@ -39,7 +39,7 @@ class ICCShell(cmd.Cmd):
         '''
         Usage: is_isbn ISBN
 
-        Check a number satisfies the ISBN-10 check condition
+        Check a number satisfies the ISBN-10 check condition.
         '''
         print(utils.is_isbn(*parse_args(args)))
 
@@ -48,7 +48,7 @@ class ICCShell(cmd.Cmd):
         '''
         Usage: isbn_fix ISBN ERROR_DIGIT
 
-        Correct the nth digit in a given ISBN-10 number
+        Correct the nth digit in a given ISBN-10 number.
         '''
         result = utils.isbn_fix(*parse_args(args))
         if result != -1:
@@ -84,7 +84,7 @@ class ICCShell(cmd.Cmd):
         '''
         Usage: congruence a m [b]
 
-        Evaluate linear congruences a*x ≡ b (mod m)
+        Evaluate linear congruences a*x ≡ b (mod m).
         '''
         args = list(map(int, parse_args(args)))
         target = args.pop(2) if len(args) > 2 else None
@@ -97,7 +97,7 @@ class ICCShell(cmd.Cmd):
         '''
         Usage: add_codewords RADIX CODEWORD1 CODEWORD2 [CODEWORDS...]
 
-        Add codewords of a given radix together
+        Add codewords of a given radix together.
         '''
         result = utils.add_codewords(*parse_args(args))
         print(result)
