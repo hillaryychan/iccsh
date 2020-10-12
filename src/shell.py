@@ -108,6 +108,8 @@ class ICCShell(cmd.Cmd):
     def do_kraft_mcmillan(self, args):
         '''
         Usage: kraft_mcmillan RADIX LENGTH [LENGTHS...]
+
+        Evaluate Kraft-McMillan inequality
         '''
         args = list(map(int, parse_args(args)))
         result = compression.eval_kraft_mcmillan(*args)
