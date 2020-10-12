@@ -1,4 +1,9 @@
 from src.shell import ICCShell
 
-if __name__ == '__main__':
+
+def main():
     ICCShell().cmdloop()
+
+
+if __name__ == '__main__':
+    main()
