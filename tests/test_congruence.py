@@ -1,4 +1,4 @@
-from src.utils import eval_congruence
+from src.error_correction import eval_congruence
 
 
 def test_congruence():

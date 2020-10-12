@@ -1,5 +1,5 @@
 import cmd
-import src.utils as utils
+import src.error_correction as error_correction
 
 from colorama import Fore
 from functools import wraps
@@ -41,7 +41,7 @@ class ICCShell(cmd.Cmd):
 
         Check a number satisfies the ISBN-10 check condition.
         '''
-        print(utils.is_isbn(*parse_args(args)))
+        print(error_correction.is_isbn(*parse_args(args)))
 
     @do_help_on_error
     def do_isbn_fix(self, args):
@@ -50,7 +50,7 @@ class ICCShell(cmd.Cmd):
 
         Correct the nth digit in a given ISBN-10 number.
         '''
-        result = utils.isbn_fix(*parse_args(args))
+        result = error_correction.isbn_fix(*parse_args(args))
         if result != -1:
             print(f"Correct digit is {result}")
         else:
@@ -65,7 +65,7 @@ class ICCShell(cmd.Cmd):
         codeword.
         '''
         codewords = parse_args(args)
-        result = utils.get_weight(codewords)
+        result = error_correction.get_weight(codewords)
         for codeword, weight in zip(codewords, result):
             print(f"Weight of {codeword} is {weight}")
 
@@ -76,7 +76,7 @@ class ICCShell(cmd.Cmd):
         Find the distance between two codewords. That is, the number of values
         that differ for each position in the codewords.
         '''
-        result = utils.get_distance(*parse_args(args))
+        result = error_correction.get_distance(*parse_args(args))
         print(f"Distance is {result}")
 
     @do_help_on_error
@@ -88,7 +88,7 @@ class ICCShell(cmd.Cmd):
         '''
         args = list(map(int, parse_args(args)))
         target = args.pop(2) if len(args) > 2 else None
-        result = utils.eval_congruence(*args, b=target)
+        result = error_correction.eval_congruence(*args, b=target)
         if result is not None:
             print(f"x is {result}")
 
@@ -99,7 +99,7 @@ class ICCShell(cmd.Cmd):
 
         Add codewords of a given radix together.
         '''
-        result = utils.add_codewords(*parse_args(args))
+        result = error_correction.add_codewords(*parse_args(args))
         print(result)
 
 

@@ -1,5 +1,6 @@
 '''
-Function implementations of algorithms from MATH3411
+Function implementations of algorithms from
+MATH3411 Chapter 2 Error Correction and Detection
 '''
 
 
