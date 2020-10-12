@@ -1,5 +1,6 @@
 import cmd
 import src.error_correction as error_correction
+import src.compression as compression
 
 from colorama import Fore
 from functools import wraps
@@ -69,6 +70,7 @@ class ICCShell(cmd.Cmd):
         for codeword, weight in zip(codewords, result):
             print(f"Weight of {codeword} is {weight}")
 
+    @do_help_on_error
     def do_distance(self, args):
         '''
         Usage: distance CODEWORD1 CODEWORD2
@@ -101,6 +103,16 @@ class ICCShell(cmd.Cmd):
         '''
         result = error_correction.add_codewords(*parse_args(args))
         print(result)
+
+    @do_help_on_error
+    def do_kraft_mcmillan(self, args):
+        '''
+        Usage: kraft_mcmillan RADIX LENGTH [LENGTHS...]
+        '''
+        args = list(map(int, parse_args(args)))
+        result = compression.eval_kraft_mcmillan(*args)
+        print(f"K = {result} = {float(result)}")
+        print(f"K ≤ 1 is {result <= 1}")
 
 
 def parse_args(args):
