@@ -86,8 +86,7 @@ class ICCShell(cmd.Cmd):
         '''
         Usage: congruence a m [b]
 
-        Evaluate linear congruences a*x ≡ b (mod m).
-        '''
+        Evaluate linear congruences a*x ≡ b (mod m).  '''
         args = list(map(int, parse_args(args)))
         target = args.pop(2) if len(args) > 2 else None
         result = error_correction.eval_congruence(*args, b=target)
@@ -115,6 +114,39 @@ class ICCShell(cmd.Cmd):
         result = compression.eval_kraft_mcmillan(*args)
         print(f"K = {result} = {float(result)}")
         print(f"K ≤ 1 is {result <= 1}")
+
+    @do_help_on_error
+    def do_kraft_mcmillan_length(self, args):
+        '''
+        Usage: kraft_mcmillan_length K RADIX LENGTH [LENGTHS...]
+
+        Find the missing codeword length that satisifes the Kraft-McMillan
+        Theorem given the coefficient K, radix and other codeword lengths
+        '''
+        args = parse_args(args)
+        k = args[0]
+        radix = int(args[1])
+        lengths = [int(length) for length in args[2:]]
+        result = compression.eval_kraft_mcmillan_length(k, radix, *lengths)
+        if result != -1:
+            print(f"length is {result}")
+        else:
+            print("length > 100")
+
+    @do_help_on_error
+    def do_kraft_mcmillan_radix(self, args):
+        '''
+        Usage: kraft_mcmillan_radix LENGTH [LENGTHS...]
+
+        Find the minimum radix that satisifes the Kraft-McMillan Theorem given
+        the codeowrd lengths
+        '''
+        args = list(map(int, parse_args(args)))
+        result = compression.eval_kraft_mcmillan_radix(*args)
+        if result != -1:
+            print(f"radix is {result}")
+        else:
+            print("length > 100")
 
 
 def parse_args(args):
