@@ -3,6 +3,7 @@ import src.error_correction as error_correction
 import src.compression as compression
 
 from colorama import Fore
+from fractions import Fraction
 from functools import wraps
 
 
@@ -124,7 +125,7 @@ class ICCShell(cmd.Cmd):
         Theorem given the coefficient K, radix and other codeword lengths
         '''
         args = parse_args(args)
-        k = args[0]
+        k = Fraction(args[0])
         radix = int(args[1])
         lengths = [int(length) for length in args[2:]]
         result = compression.eval_kraft_mcmillan_length(k, radix, *lengths)

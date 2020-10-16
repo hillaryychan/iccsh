@@ -12,7 +12,6 @@ def eval_kraft_mcmillan(radix, *args, **kwargs):
 
 
 def eval_kraft_mcmillan_length(k, radix, *args, **kwargs):
-    k = Fraction(k)
     curr_k = eval_kraft_mcmillan(radix, *args)
     length = int(log(k - curr_k)/log(1/radix))
     return length

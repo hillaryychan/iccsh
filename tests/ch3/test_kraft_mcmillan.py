@@ -12,7 +12,7 @@ def test_kraft_mcmillan():
 
 
 def test_kraft_mcmillan_length():
-    eval_kraft_mcmillan_length("63/64", 2, 1, 2, 4, 5, 6) == 3
+    eval_kraft_mcmillan_length(Fraction(63, 64), 2, 1, 2, 4, 5, 6) == 3
 
 
 def test_kraft_mcmillan_radix():
