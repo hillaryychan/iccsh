@@ -4,7 +4,7 @@ MATH3411 Chapter 3 Compression Coding
 '''
 
 from fractions import Fraction
-from math import log
+from math import log, ceil
 
 
 def eval_kraft_mcmillan(radix, *args, **kwargs):
@@ -14,6 +14,12 @@ def eval_kraft_mcmillan(radix, *args, **kwargs):
 def eval_kraft_mcmillan_length(k, radix, *args, **kwargs):
     curr_k = eval_kraft_mcmillan(radix, *args)
     length = int(log(k - curr_k)/log(1/radix))
+    return length
+
+
+def eval_kraft_mcmillan_min_length(radix, *args, **kwargs):
+    curr_k = eval_kraft_mcmillan(radix, *args)
+    length = ceil(log(1 - curr_k)/log(1/radix))
     return length
 
 

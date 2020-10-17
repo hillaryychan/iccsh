@@ -1,6 +1,7 @@
 from fractions import Fraction
 from src.compression import (eval_kraft_mcmillan,
                              eval_kraft_mcmillan_length,
+                             eval_kraft_mcmillan_min_length,
                              eval_kraft_mcmillan_radix)
 
 
@@ -13,6 +14,10 @@ def test_kraft_mcmillan():
 
 def test_kraft_mcmillan_length():
     eval_kraft_mcmillan_length(Fraction(63, 64), 2, 1, 2, 4, 5, 6) == 3
+
+
+def test_kraft_mcmillan_min_length():
+    eval_kraft_mcmillan_min_length(2, 1, 2, 3, 4, 5, 7) == 6
 
 
 def test_kraft_mcmillan_radix():

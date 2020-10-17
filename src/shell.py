@@ -129,10 +129,25 @@ class ICCShell(cmd.Cmd):
         radix = int(args[1])
         lengths = [int(length) for length in args[2:]]
         result = compression.eval_kraft_mcmillan_length(k, radix, *lengths)
-        if result != -1:
-            print(f"length is {result}")
-        else:
-            print("length > 100")
+
+        print(f"length is {result}")
+        result_args = [str(x) for x in [radix] + lengths + [result]]
+        self.do_kraft_mcmillan(' '.join(result_args))
+
+    @do_help_on_error
+    def do_kraft_mcmillan_min_length(self, args):
+        '''
+        Usage: kraft_mcmillan_min_length RADIX LENGTH [LENGTHS...]
+
+        Find the minimum codeword length that satisifes the Kraft-McMillan
+        Theorem given the radix and other codeword lengths
+        '''
+        args = list(map(int, parse_args(args)))
+        result = compression.eval_kraft_mcmillan_min_length(*args)
+
+        print(f"length is {result}")
+        result_args = [str(x) for x in args + [result]]
+        self.do_kraft_mcmillan(' '.join(result_args))
 
     @do_help_on_error
     def do_kraft_mcmillan_radix(self, args):
