@@ -37,6 +37,9 @@ class ICCShell(cmd.Cmd):
         '''
         return self.do_exit(args)
 
+    # Ch2. Error Correction and Detection
+
+    @do_help_on_error
     def do_is_isbn(self, args):
         '''
         Usage: is_isbn ISBN
@@ -58,6 +61,7 @@ class ICCShell(cmd.Cmd):
         else:
             print("Could not find correct digit")
 
+    @do_help_on_error
     def do_weight(self, args):
         '''
         Usage: weight CODEWORD
@@ -103,6 +107,8 @@ class ICCShell(cmd.Cmd):
         '''
         result = error_correction.add_codewords(*parse_args(args))
         print(result)
+
+    # Ch3. Compression Coding
 
     @do_help_on_error
     def do_kraft_mcmillan(self, args):
@@ -163,6 +169,37 @@ class ICCShell(cmd.Cmd):
             print(f"radix is {result}")
         else:
             print("length > 100")
+
+    @do_help_on_error
+    def do_lz78_encode(self, args):
+        pass
+
+    @do_help_on_error
+    def do_lz78_decode(self, args):
+        pass
+
+    @do_help_on_error
+    def do_arithmetic_encode(self, args):
+        '''
+        Usage: arithmetic_encode SOURCE_SYMBOLS SOURCE_PROBABILITIES MESSAGE
+
+        Encode a message using arithmetic encoding with the provided source
+        symbols and their respective probabilities.
+        Note: symbols must be 1 char long.
+        Note: you can use anything as a stop symbol as long as YOU know it's
+        the stop symbol.
+        '''
+        args = list(parse_args(args))
+
+        source = list(args.pop(0))
+        message = args.pop()
+        probabilities = list(map(float, args))
+        result = compression.arithmetic_encode(source, probabilities, message)
+        print(f"a valid value would be {result:.5f}")
+
+    @do_help_on_error
+    def do_arithmetic_decode(self, args):
+        pass
 
 
 def parse_args(args):

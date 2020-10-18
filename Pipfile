@@ -11,6 +11,7 @@ pylint = "*"
 pytest = "*"
 jedi = "*"
 colorama = "*"
+numpy = "*"
 
 [requires]
 python_version = "3.6"

@@ -14,6 +14,7 @@ def test_kraft_mcmillan():
 
 def test_kraft_mcmillan_length():
     eval_kraft_mcmillan_length(Fraction(63, 64), 2, 1, 2, 4, 5, 6) == 3
+    eval_kraft_mcmillan_length(Fraction(7, 8), 2, 2, 2, 3, 4, 4) == 3
 
 
 def test_kraft_mcmillan_min_length():
@@ -22,3 +23,4 @@ def test_kraft_mcmillan_min_length():
 
 def test_kraft_mcmillan_radix():
     assert eval_kraft_mcmillan_radix(2, 2, 2, 3, 4, 5) == 2
+    assert eval_kraft_mcmillan_radix(1, 1, 2, 2, 3, 3, 5) == 3
