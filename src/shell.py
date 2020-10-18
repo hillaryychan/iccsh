@@ -199,7 +199,22 @@ class ICCShell(cmd.Cmd):
 
     @do_help_on_error
     def do_arithmetic_decode(self, args):
-        pass
+        '''
+        Usage: arithmetic_decode SOURCE_SYMBOLS SOURCE_PROBABILITIES VALUE
+
+        Decode an arithmetic encoded message using the provided source symbols
+        and their respsective probabilities.
+        Note: symbols must be 1 char long.
+        Note: you can use anything as a stop symbol as long as YOU know it's
+        the stop symbol.
+        '''
+        args = list(parse_args(args))
+
+        source = list(args.pop(0))
+        probabilities = list(map(float, args))
+        value = probabilities.pop()
+        result = compression.arithmetic_decode(source, probabilities, value)
+        print(f"decoded message is {result}")
 
 
 def parse_args(args):

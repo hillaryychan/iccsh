@@ -4,7 +4,8 @@ MATH3411 Chapter 3 Compression Coding
 '''
 
 from fractions import Fraction
-from math import log, ceil
+from math import log, ceil, isclose
+from numpy import cumsum
 
 
 def eval_kraft_mcmillan(radix, *args, **kwargs):
@@ -39,17 +40,21 @@ def lz78_decode():
     pass
 
 
-def arithmetic_encode(source, probabilities, message):
+def validate_arithmetic_symbols(source, probabilities):
     if len(source) != len(probabilities):
         raise ValueError(("No. of symbols and probabilities do not match\n"
                           f"source: {source}\n"
                           f"probabilities: {probabilities}"))
+    if not isclose(sum(probabilities), 1):
+        raise ValueError(f"Probabilities {probabilities} do not sum to 1")
+
+
+def arithmetic_encode(source, probabilities, message):
+    validate_arithmetic_symbols(source, probabilities)
     message_symbols = set(message)
     if not (all(symbol in source for symbol in message_symbols)):
-        raise ValueError((f"Message {message} contains symbol(s) not in source "
-                          f"symbols {source}"))
-    if sum(probabilities) != 1:
-        raise ValueError(f"probabilities {probabilities} do not sum to 1")
+        raise ValueError((f"Message '{message}' contains symbol(s) not in "
+                          f"source symbols {source}"))
 
     print("symbol: {:>10} {:>10}".format("start", "width"))
     start = 0
@@ -64,5 +69,34 @@ def arithmetic_encode(source, probabilities, message):
     return (start + end)/2
 
 
-def arithmetic_decode():
-    pass
+def generate_intervals(probabilities):
+    ends = cumsum(probabilities)
+    intervals = []
+    for index, end in enumerate(ends):
+        intervals.append((sum(probabilities[:index]), end))
+    return intervals
+
+
+def find_interval(value, intervals):
+    '''
+    Find the interval in which value exists in.
+    Returns the index where the interval interval_ends.
+    '''
+    for index, interval in enumerate(intervals):
+        if interval[0] <= value <= interval[1]:
+            return index
+    return -1
+
+
+def arithmetic_decode(source, probabilities, value):
+    validate_arithmetic_symbols(source, probabilities)
+    intervals = generate_intervals(probabilities)
+
+    message = ""
+    index = find_interval(value, intervals)
+    while index != (len(source) - 1) and index != -1:
+        message += source[index]
+        value = (value - sum(probabilities[:index]))/probabilities[index]
+        index = find_interval(value, intervals)
+
+    return message
