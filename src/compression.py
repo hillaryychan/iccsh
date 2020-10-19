@@ -49,7 +49,7 @@ def validate_arithmetic_symbols(source, probabilities):
         raise ValueError(f"Probabilities {probabilities} do not sum to 1")
 
 
-def arithmetic_encode(source, probabilities, message):
+def arithmetic_encode(source, probabilities, message, *args, **kwargs):
     validate_arithmetic_symbols(source, probabilities)
     message_symbols = set(message)
     if not (all(symbol in source for symbol in message_symbols)):
@@ -88,7 +88,7 @@ def find_interval(value, intervals):
     return -1
 
 
-def arithmetic_decode(source, probabilities, value):
+def arithmetic_decode(source, probabilities, value, *args, **kwargs):
     validate_arithmetic_symbols(source, probabilities)
     intervals = generate_intervals(probabilities)
 
@@ -99,4 +99,4 @@ def arithmetic_decode(source, probabilities, value):
         value = (value - sum(probabilities[:index]))/probabilities[index]
         index = find_interval(value, intervals)
 
-    return message
+    return message + source[-1]
