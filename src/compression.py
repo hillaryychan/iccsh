@@ -60,8 +60,19 @@ def lz78_encode(message, *args, **kwargs):
     return dictionary
 
 
-def lz78_decode():
-    pass
+def lz78_decode(outputs, *args, **kwargs):
+    dictionary = []
+    message = ''
+    for i, c in outputs:
+        if i == 0:
+            suffix = c
+            dictionary.append((c, (i, c)))
+        else:
+            entry = dictionary[i-1]
+            suffix = entry[0]+c
+            dictionary.append((entry[0]+c, (i, c)))
+        message += suffix
+    return message
 
 
 def validate_arithmetic_symbols(source, probabilities):

@@ -2,6 +2,7 @@ import pytest
 
 from numpy.testing import assert_almost_equal
 from src.compression import (lz78_encode,
+                             lz78_decode,
                              validate_arithmetic_symbols,
                              arithmetic_encode,
                              arithmetic_decode)
@@ -21,6 +22,14 @@ def test_lz78_encode():
                                             ('ab', (2, 'b')),
                                             ('aaa', (3, 'a')),
                                             ('aaab', (5, 'b'))]
+
+
+def test_lz78_decode():
+    outputs = [(0, 'c'), (1, 'c'), (2, 'b'), (3, 'c'), (3, 'b'), (4, 'a')]
+    assert lz78_decode(outputs) == 'cccccbccbcccbbccbca'
+
+    outputs = [(0, 'b'), (1, 'b'), (2, 'c'), (3, 'a'), (4, 'b'), (5, 'b')]
+    assert lz78_decode(outputs) == 'bbbbbcbbcabbcabbbcabb'
 
 
 def test_validate_arithmetic_symbols_with_varying_source_and_probabilities():

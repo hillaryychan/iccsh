@@ -1,7 +1,10 @@
 import cmd
+import re
+
 import src.error_correction as error_correction
 import src.compression as compression
 
+from ast import literal_eval
 from colorama import Fore
 from fractions import Fraction
 from functools import wraps
@@ -184,7 +187,16 @@ class ICCShell(cmd.Cmd):
 
     @do_help_on_error
     def do_lz78_decode(self, args):
-        pass
+        '''
+        Usage: lz78_encode OUTPUT [OUTPUTS...]
+
+        Decode a message encoded with the LZ78 algorithm.
+        '''
+        outputs = map(lambda s: re.sub(r"([a-zA-Z])", r"'\1'", s),
+                      parse_args(args))
+        outputs = list(map(literal_eval, outputs))
+        result = compression.lz78_decode(outputs)
+        print(f"message is '{result}'")
 
     @do_help_on_error
     def do_arithmetic_encode(self, args):
