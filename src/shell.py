@@ -172,7 +172,15 @@ class ICCShell(cmd.Cmd):
 
     @do_help_on_error
     def do_lz78_encode(self, args):
-        pass
+        '''
+        Usage: lz78_encode MESSAGE
+
+        Encodes a message using the LZ78 algorithm.
+        '''
+        result = compression.lz78_encode(*parse_args(args))
+        print("no. entry      output")
+        for index, entry in enumerate(result):
+            print(f"{index+1:<3d} {entry[0]:10} {entry[1]}")
 
     @do_help_on_error
     def do_lz78_decode(self, args):

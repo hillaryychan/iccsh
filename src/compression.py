@@ -32,8 +32,32 @@ def eval_kraft_mcmillan_radix(*args, **kwargs):
     return -1
 
 
-def lz78_encode():
-    pass
+def find_prefix_entry(message, dictionary):
+    '''
+    Find the longest entry in dictionary which is a prefix of the given message
+    '''
+    for entry in dictionary[::-1]:
+        if message.startswith(entry[0]):
+            return dictionary.index(entry)
+    return -1
+
+
+def lz78_encode(message, *args, **kwargs):
+    dictionary = []
+    while len(message) > 0:
+        prefix_entry = find_prefix_entry(message, dictionary)
+        if prefix_entry == -1:
+            next_char = message[0]
+            entry = (next_char, (0, next_char))
+            message = message[1:]
+        else:
+            prefix = dictionary[prefix_entry][0]
+            next_char = message[len(prefix)]
+            value = prefix + next_char
+            entry = (value, (prefix_entry + 1, next_char))
+            message = message[len(value):]
+        dictionary.append(entry)
+    return dictionary
 
 
 def lz78_decode():
