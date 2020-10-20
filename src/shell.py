@@ -186,6 +186,18 @@ class ICCShell(cmd.Cmd):
         print(f"encoded message is '{result}'")
 
     @do_help_on_error
+    def do_comma_decode(self, args):
+        '''
+        Usage: comma_decode LENGTH MESSAGE
+
+        Decode a message encoded using a comma code of a given length
+        '''
+        args = list(parse_args(args))
+        length = int(args.pop(0))
+        result = compression.comma_decode(length, *args)
+        print(f"decoded message is '{result}'")
+
+    @do_help_on_error
     def do_lz78_encode(self, args):
         '''
         Usage: lz78_encode MESSAGE

@@ -52,6 +52,7 @@ def generate_comma_code(length):
 
 
 def comma_encode(length, message, *args, **kwargs):
+    message = list(filter(lambda s: s, message.split('s')))
     check_comma_message_symbols(length, message)
     code = generate_comma_code(length)
     encoded = ''
@@ -59,6 +60,23 @@ def comma_encode(length, message, *args, **kwargs):
         index = int(s) - 1
         encoded += code[index]
     return encoded
+
+
+def find_comma_prefix(message, code):
+    for c in code[::-1]:
+        if message.startswith(c):
+            return code.index(c)
+    return -1
+
+
+def comma_decode(length, message, *args, **kwargs):
+    code = generate_comma_code(length)
+    decoded = ''
+    while len(message) > 0:
+        prefix = find_comma_prefix(message, code)
+        message = message[len(code[prefix]):]
+        decoded += f"s{prefix+1}"
+    return decoded
 
 
 def find_prefix_entry(message, dictionary):
