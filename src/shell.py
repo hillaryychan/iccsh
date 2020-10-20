@@ -174,6 +174,18 @@ class ICCShell(cmd.Cmd):
             print("length > 100")
 
     @do_help_on_error
+    def do_comma_encode(self, args):
+        '''
+        Usage: comma_encode LENGTH MESSAGE
+
+        Encode a message using a comma code of a given length
+        '''
+        args = list(parse_args(args))
+        length = int(args.pop(0))
+        result = compression.comma_encode(length, *args)
+        print(f"encoded message is '{result}'")
+
+    @do_help_on_error
     def do_lz78_encode(self, args):
         '''
         Usage: lz78_encode MESSAGE

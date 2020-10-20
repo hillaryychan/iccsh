@@ -32,6 +32,35 @@ def eval_kraft_mcmillan_radix(*args, **kwargs):
     return -1
 
 
+def check_comma_message_symbols(length, message):
+    gt_length = list(filter(lambda s: int(s) > (length + 1), message))
+    if gt_length:
+        raise ValueError((f"message '{message}' contains symbols which can be "
+                          f"encoded by a comma code of length {length}"))
+
+
+def generate_comma_code(length):
+    code = []
+    for i in range(length+1):
+        if i == 0:
+            code.append('0')
+        elif i == length:
+            code.append('1'*i)
+        else:
+            code.append('1'*i+'0')
+    return code
+
+
+def comma_encode(length, message, *args, **kwargs):
+    check_comma_message_symbols(length, message)
+    code = generate_comma_code(length)
+    encoded = ''
+    for s in message:
+        index = int(s) - 1
+        encoded += code[index]
+    return encoded
+
+
 def find_prefix_entry(message, dictionary):
     '''
     Find the longest entry in dictionary which is a prefix of the given message

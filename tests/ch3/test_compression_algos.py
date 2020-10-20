@@ -1,11 +1,17 @@
 import pytest
 
 from numpy.testing import assert_almost_equal
-from src.compression import (lz78_encode,
+from src.compression import (comma_encode,
+                             lz78_encode,
                              lz78_decode,
                              validate_arithmetic_symbols,
                              arithmetic_encode,
                              arithmetic_decode)
+
+
+def test_comma_encode():
+    assert comma_encode(4, '31415') == '1100111001111'
+    assert comma_encode(4, '21252') == '10010111110'
 
 
 def test_lz78_encode():
