@@ -1,5 +1,6 @@
 import pytest
 
+from fractions import Fraction
 from numpy.testing import assert_almost_equal
 from src.compression import (comma_encode,
                              comma_decode,
@@ -7,7 +8,8 @@ from src.compression import (comma_encode,
                              lz78_decode,
                              validate_arithmetic_symbols,
                              arithmetic_encode,
-                             arithmetic_decode)
+                             arithmetic_decode,
+                             calculate_huffman_avg_len)
 
 
 def test_comma_encode():
@@ -87,3 +89,25 @@ def test_arithmetic_decode():
 
     message = arithmetic_decode(['a', 'b', '.'], [0.8, 0.1, 0.1], 0.7008)
     assert message == 'aba.'
+
+
+def test_calculate_avg_huffman_len():
+    probabilities = [Fraction(27, 64), Fraction(9, 64), Fraction(9, 64),
+                     Fraction(9, 64), Fraction(3, 64), Fraction(3, 64),
+                     Fraction(3, 64), Fraction(1, 64)]
+    avg_len = calculate_huffman_avg_len(3, probabilities)
+    assert avg_len == Fraction(105, 64)
+
+    probabilities = [Fraction(6, 17), Fraction(5, 17), Fraction(2, 17),
+                     Fraction(2, 17), Fraction(2, 17)]
+    avg_len = calculate_huffman_avg_len(4, probabilities)
+    assert avg_len == Fraction(21, 17)
+
+
+def test_calculate_avg_huffman_len_with_invalid_probabilities():
+    with pytest.raises(ValueError) as exc:
+        probabilities = [Fraction(4, 11), Fraction(2, 11), Fraction(1, 11),
+                         Fraction(1, 11), Fraction(1, 11), Fraction(1, 11)]
+        calculate_huffman_avg_len(3, probabilities)
+    assert str(exc.value) == ("Probabilities ['4/11', '2/11', '1/11', '1/11', "
+                              "'1/11', '1/11'] do not sum to 1")

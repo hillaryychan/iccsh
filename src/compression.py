@@ -178,7 +178,27 @@ def arithmetic_decode(source, probabilities, value, *args, **kwargs):
     index = find_interval(value, intervals)
     while index != (len(source) - 1) and index != -1:
         message += source[index]
+        # scale value with value = (value - start) / interval width
         value = (value - sum(probabilities[:index]))/probabilities[index]
         index = find_interval(value, intervals)
 
     return message + source[-1]
+
+
+def calculate_huffman_avg_len(radix, probabilities, *args, **kwargs):
+    if not isclose(sum(probabilities), 1):
+        probabilities = list(map(str, probabilities))
+        raise ValueError(f"Probabilities {probabilities} do not sum to 1")
+
+    # add dummy probabilities
+    while len(probabilities) % (radix - 1) != 1:
+        probabilities.append(Fraction(0))
+
+    avg_len = []
+    while len(probabilities) > 1:
+        probabilities.sort()
+        new_probability = sum(probabilities[:radix])
+        probabilities = probabilities[radix:] + [new_probability]
+        avg_len.append(new_probability)
+
+    return sum(avg_len)

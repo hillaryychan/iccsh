@@ -260,6 +260,20 @@ class ICCShell(cmd.Cmd):
         result = compression.arithmetic_decode(source, probabilities, value)
         print(f"decoded message is {result}")
 
+    @do_help_on_error
+    def do_huffman_avg_len(self, args):
+        '''
+        Usage: huffman_avg_len RADIX PROBABILITY [PROBABILITIES...]
+
+        Calculates the average length of a Huffman code of the given radix
+        and probabilities
+        '''
+        args = list(parse_args(args))
+        radix = int(args.pop(0))
+        probabilities = list(map(Fraction, args))
+        result = compression.calculate_huffman_avg_len(radix, probabilities)
+        print(f"average length of code is {result}")
+
 
 def parse_args(args):
     # tuple cause we don't want the arguments to be mutated :)
