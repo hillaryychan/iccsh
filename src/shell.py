@@ -277,4 +277,4 @@ class ICCShell(cmd.Cmd):
 
 def parse_args(args):
     # tuple cause we don't want the arguments to be mutated :)
-    return tuple(args.split(' '))
+    return tuple(args.split())
