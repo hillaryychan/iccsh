@@ -179,6 +179,7 @@ class ICCShell(cmd.Cmd):
         Usage: comma_encode LENGTH MESSAGE
 
         Encode a message using a comma code of a given length
+        Note: message is expected to be in format 's1s2s3s4'
         '''
         args = list(parse_args(args))
         length = int(args.pop(0))
@@ -212,7 +213,7 @@ class ICCShell(cmd.Cmd):
     @do_help_on_error
     def do_lz78_decode(self, args):
         '''
-        Usage: lz78_encode OUTPUT [OUTPUTS...]
+        Usage: lz78_decode OUTPUT [OUTPUTS...]
 
         Decode a message encoded with the LZ78 algorithm.
         '''
