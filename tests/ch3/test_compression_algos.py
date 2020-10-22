@@ -92,6 +92,10 @@ def test_arithmetic_decode():
 
 
 def test_calculate_avg_huffman_len():
+    probabilities = [Fraction(7, 10), Fraction(1, 5), Fraction(1, 10)]
+    avg_len = calculate_huffman_avg_len(2, probabilities)
+    assert avg_len == Fraction(13, 10)
+
     probabilities = [Fraction(27, 64), Fraction(9, 64), Fraction(9, 64),
                      Fraction(9, 64), Fraction(3, 64), Fraction(3, 64),
                      Fraction(3, 64), Fraction(1, 64)]

@@ -275,6 +275,19 @@ class ICCShell(cmd.Cmd):
         result = compression.calculate_huffman_avg_len(radix, probabilities)
         print(f"average length of code is {result}")
 
+    @do_help_on_error
+    def do_huffman_generate(self, args):
+        '''
+        Usage: huffman_generate RADIX PROBABILITY [PROBABILITIES...]
+        '''
+        args = list(parse_args(args))
+        radix = int(args.pop(0))
+        probabilities = list(map(Fraction, args))
+        result = compression.generate_huffman(radix, probabilities)
+        print("source probability codeword")
+        for source, probability, code in result:
+            print(f"{source:<6} { str(probability):11} {code}")
+
 
 def parse_args(args):
     # tuple cause we don't want the arguments to be mutated :)
