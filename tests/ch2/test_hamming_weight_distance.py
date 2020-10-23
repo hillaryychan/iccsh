@@ -1,4 +1,4 @@
-from src.error_correction import get_weight, get_distance
+from src.ch2.error_correction import get_weight, get_distance
 
 
 def test_get_weight_with_zero_codeword():

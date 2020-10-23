@@ -1,5 +1,5 @@
 import pytest
-from src.error_correction import is_isbn, isbn_fix
+from src.ch2.error_correction import is_isbn, isbn_fix
 
 
 def test_is_isbn_with_valid_isbn():

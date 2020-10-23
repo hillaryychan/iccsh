@@ -1,4 +1,4 @@
-from src.error_correction import add_codewords
+from src.ch2.error_correction import add_codewords
 
 
 def test_addd_codeword_with_no_codewords():
