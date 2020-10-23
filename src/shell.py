@@ -10,6 +10,14 @@ from fractions import Fraction
 from functools import wraps
 
 
+def is_decimal(value):
+    try:
+        float(value)
+        return True
+    except Exception:
+        return False
+
+
 def do_help_on_error(func):
     @wraps(func)
     def wrapper(self, *args, **kwargs):
@@ -267,7 +275,7 @@ class ICCShell(cmd.Cmd):
         Usage: huffman_avg_len RADIX PROBABILITY [PROBABILITIES...]
 
         Calculates the average length of a Huffman code of the given radix
-        and probabilities
+        and probabilities.
         '''
         args = list(parse_args(args))
         radix = int(args.pop(0))
@@ -279,14 +287,19 @@ class ICCShell(cmd.Cmd):
     def do_huffman_generate(self, args):
         '''
         Usage: huffman_generate RADIX PROBABILITY [PROBABILITIES...]
+
+        Generate a Huffman code based on the given radix and probabilities of
+        source symbols.
         '''
         args = list(parse_args(args))
         radix = int(args.pop(0))
         probabilities = list(map(Fraction, args))
         result = compression.generate_huffman(radix, probabilities)
-        print("source probability codeword")
+
+        decimal = all(is_decimal(x) for x in args)
         for source, probability, code in result:
-            print(f"{source:<6} { str(probability):11} {code}")
+            probability = probability if not decimal else float(probability)
+            print(f"s{source:<5} { str(probability):11} {code}")
 
 
 def parse_args(args):

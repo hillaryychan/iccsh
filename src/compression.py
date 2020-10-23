@@ -214,6 +214,8 @@ class Node:
         self.parents = []
 
     def __lt__(self, other):
+        if self.probability == other.probability:
+            return self.source_no > other.source_no
         return self.probability < other.probability
 
     def __add__(self, other):
@@ -256,9 +258,8 @@ def generate_huffman(radix, probabilities):
         while len(probabilities) % (radix - 1) != 1:
             probabilities.append(Fraction(0))
 
-    probabilities.sort(reverse=True)
     nodes = [Node(p, i) for i, p in enumerate(probabilities, 1)]
-    nodes.reverse()
+    nodes.sort()
     while len(nodes) > 0:
         new_node = sum(nodes[:radix])
 
