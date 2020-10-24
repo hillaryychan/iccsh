@@ -301,6 +301,7 @@ class ICCShell(cmd.Cmd):
         result = huffman_code.generate_huffman(radix, probabilities)
 
         decimal = all(is_decimal(x) for x in args)
+        print("source probability code")
         for source, probability, code in result:
             probability = probability if not decimal else float(probability)
             print(f"s{source:<5} { str(probability):11} {code}")
