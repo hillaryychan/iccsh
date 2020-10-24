@@ -289,7 +289,7 @@ class ICCShell(cmd.Cmd):
         Usage: huffman_generate RADIX PROBABILITY [PROBABILITIES...]
 
         Generate a Huffman code based on the given radix and probabilities of
-        source symbols.
+        source symbols. The code is generate using the "place high strategy"
         '''
         args = list(parse_args(args))
         radix = int(args.pop(0))
