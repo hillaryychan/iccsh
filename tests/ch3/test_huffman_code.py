@@ -1,32 +1,32 @@
 import pytest
 
 from fractions import Fraction
-from src.ch3.huffman_code import (calc_huffman_avg_len,
+from src.ch3.huffman_code import (calculate_huffman_avg_len,
                                   generate_huffman)
 
 
-def test_calc_avg_huffman_len():
+def test_calculate_avg_huffman_len():
     probabilities = [Fraction(7, 10), Fraction(1, 5), Fraction(1, 10)]
-    avg_len = calc_huffman_avg_len(2, probabilities)
+    avg_len = calculate_huffman_avg_len(2, probabilities)
     assert avg_len == Fraction(13, 10)
 
     probabilities = [Fraction(27, 64), Fraction(9, 64), Fraction(9, 64),
                      Fraction(9, 64), Fraction(3, 64), Fraction(3, 64),
                      Fraction(3, 64), Fraction(1, 64)]
-    avg_len = calc_huffman_avg_len(3, probabilities)
+    avg_len = calculate_huffman_avg_len(3, probabilities)
     assert avg_len == Fraction(105, 64)
 
     probabilities = [Fraction(6, 17), Fraction(5, 17), Fraction(2, 17),
                      Fraction(2, 17), Fraction(2, 17)]
-    avg_len = calc_huffman_avg_len(4, probabilities)
+    avg_len = calculate_huffman_avg_len(4, probabilities)
     assert avg_len == Fraction(21, 17)
 
 
-def test_calc_avg_huffman_len_with_invalid_probabilities():
+def test_calculate_avg_huffman_len_with_invalid_probabilities():
     with pytest.raises(ValueError) as exc:
         probabilities = [Fraction(4, 11), Fraction(2, 11), Fraction(1, 11),
                          Fraction(1, 11), Fraction(1, 11), Fraction(1, 11)]
-        calc_huffman_avg_len(3, probabilities)
+        calculate_huffman_avg_len(3, probabilities)
     assert str(exc.value) == ("Probabilities ['4/11', '2/11', '1/11', '1/11', "
                               "'1/11', '1/11'] do not sum to 1")
 

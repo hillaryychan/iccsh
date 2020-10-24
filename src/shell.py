@@ -6,8 +6,12 @@ from colorama import Fore
 from fractions import Fraction
 from functools import wraps
 
-import src.ch2 as ch2
-import src.ch3 as ch3
+from src.ch2 import error_correction
+from src.ch3 import (kraft_mcmillan,
+                     comma_code,
+                     dictionary_code,
+                     arithmetic_code,
+                     huffman_code)
 
 
 def is_decimal(value):
@@ -57,7 +61,7 @@ class ICCShell(cmd.Cmd):
 
         Check a number satisfies the ISBN-10 check condition.
         '''
-        print(ch2.error_correction.is_isbn(*parse_args(args)))
+        print(error_correction.is_isbn(*parse_args(args)))
 
     @do_help_on_error
     def do_isbn_fix(self, args):
@@ -66,7 +70,7 @@ class ICCShell(cmd.Cmd):
 
         Correct the nth digit in a given ISBN-10 number.
         '''
-        result = ch2.error_correction.isbn_fix(*parse_args(args))
+        result = error_correction.isbn_fix(*parse_args(args))
         if result != -1:
             print(f"Correct digit is {result}")
         else:
@@ -82,7 +86,7 @@ class ICCShell(cmd.Cmd):
         codeword.
         '''
         codewords = parse_args(args)
-        result = ch2.error_correction.get_weight(codewords)
+        result = error_correction.get_weight(codewords)
         for codeword, weight in zip(codewords, result):
             print(f"Weight of {codeword} is {weight}")
 
@@ -94,7 +98,7 @@ class ICCShell(cmd.Cmd):
         Find the distance between two codewords. That is, the number of values
         that differ for each position in the codewords.
         '''
-        result = ch2.error_correction.get_distance(*parse_args(args))
+        result = error_correction.get_distance(*parse_args(args))
         print(f"Distance is {result}")
 
     @do_help_on_error
@@ -105,7 +109,7 @@ class ICCShell(cmd.Cmd):
         Evaluate linear congruences a*x ≡ b (mod m).  '''
         args = list(map(int, parse_args(args)))
         target = args.pop(2) if len(args) > 2 else None
-        result = ch2.error_correction.eval_congruence(*args, b=target)
+        result = error_correction.eval_congruence(*args, b=target)
         if result is not None:
             print(f"x is {result}")
 
@@ -116,10 +120,10 @@ class ICCShell(cmd.Cmd):
 
         Add codewords of a given radix together.
         '''
-        result = ch2.error_correction.add_codewords(*parse_args(args))
+        result = error_correction.add_codewords(*parse_args(args))
         print(result)
 
-    # Ch3. Compression Coding
+    #  Compression Coding
 
     @do_help_on_error
     def do_kraft_mcmillan(self, args):
@@ -129,7 +133,7 @@ class ICCShell(cmd.Cmd):
         Evaluate Kraft-McMillan inequality
         '''
         args = list(map(int, parse_args(args)))
-        result = ch3.kraft_mcmillan.eval_kraft_mcmillan(*args)
+        result = kraft_mcmillan.eval_kraft_mcmillan(*args)
         print(f"K = {result} = {float(result)}")
         print(f"K ≤ 1 is {result <= 1}")
 
@@ -145,7 +149,7 @@ class ICCShell(cmd.Cmd):
         k = Fraction(args[0])
         radix = int(args[1])
         lengths = [int(length) for length in args[2:]]
-        result = ch3.kraft_mcmillan.eval_kraft_mcmillan_len(k, radix, *lengths)
+        result = kraft_mcmillan.eval_kraft_mcmillan_length(k, radix, *lengths)
 
         print(f"length is {result}")
         result_args = [str(x) for x in [radix] + lengths + [result]]
@@ -160,7 +164,7 @@ class ICCShell(cmd.Cmd):
         Theorem given the radix and other codeword lengths
         '''
         args = list(map(int, parse_args(args)))
-        result = ch3.kraft_mcmillan.eval_kraft_mcmillan_min_len(*args)
+        result = kraft_mcmillan.eval_kraft_mcmillan_min_length(*args)
 
         print(f"length is {result}")
         result_args = [str(x) for x in args + [result]]
@@ -175,7 +179,7 @@ class ICCShell(cmd.Cmd):
         the codeowrd lengths
         '''
         args = list(map(int, parse_args(args)))
-        result = ch3.kraft_mcmillan.eval_kraft_mcmillan_radix(*args)
+        result = kraft_mcmillan.eval_kraft_mcmillan_radix(*args)
         if result != -1:
             print(f"radix is {result}")
         else:
@@ -191,7 +195,7 @@ class ICCShell(cmd.Cmd):
         '''
         args = list(parse_args(args))
         length = int(args.pop(0))
-        result = ch3.comma_code.comma_encode(length, *args)
+        result = comma_code.comma_encode(length, *args)
         print(f"encoded message is '{result}'")
 
     @do_help_on_error
@@ -203,7 +207,7 @@ class ICCShell(cmd.Cmd):
         '''
         args = list(parse_args(args))
         length = int(args.pop(0))
-        result = ch3.comma_code.comma_decode(length, *args)
+        result = comma_code.comma_decode(length, *args)
         print(f"decoded message is '{result}'")
 
     @do_help_on_error
@@ -213,7 +217,7 @@ class ICCShell(cmd.Cmd):
 
         Encodes a message using the LZ78 algorithm.
         '''
-        result = ch3.dictionary_code.lz78_encode(*parse_args(args))
+        result = dictionary_code.lz78_encode(*parse_args(args))
         print("no. entry      output")
         for index, entry in enumerate(result):
             print(f"{index+1:<3d} {entry[0]:10} {entry[1]}")
@@ -228,7 +232,7 @@ class ICCShell(cmd.Cmd):
         outputs = map(lambda s: re.sub(r"([a-zA-Z])", r"'\1'", s),
                       parse_args(args))
         outputs = list(map(literal_eval, outputs))
-        result = ch3.dictionary_code.lz78_decode(outputs)
+        result = dictionary_code.lz78_decode(outputs)
         print(f"message is '{result}'")
 
     @do_help_on_error
@@ -244,10 +248,10 @@ class ICCShell(cmd.Cmd):
         '''
         args = list(parse_args(args))
 
-        src = list(args.pop(0))
+        source = list(args.pop(0))
         msg = args.pop()
         probabilities = list(map(float, args))
-        result = ch3.arithmetic_code.arithmetic_encode(src, probabilities, msg)
+        result = arithmetic_code.arithmetic_encode(source, probabilities, msg)
         print(f"a valid value would be {result:.5f}")
 
     @do_help_on_error
@@ -263,10 +267,10 @@ class ICCShell(cmd.Cmd):
         '''
         args = list(parse_args(args))
 
-        src = list(args.pop(0))
+        source = list(args.pop(0))
         probabilities = list(map(float, args))
-        val = probabilities.pop()
-        result = ch3.arithmetic_code.arithmetic_decode(src, probabilities, val)
+        value = probabilities.pop()
+        result = arithmetic_code.arithmetic_decode(source, probabilities, value)
         print(f"decoded message is {result}")
 
     @do_help_on_error
@@ -280,7 +284,7 @@ class ICCShell(cmd.Cmd):
         args = list(parse_args(args))
         radix = int(args.pop(0))
         probabilities = list(map(Fraction, args))
-        result = ch3.huffman_code.calc_huffman_avg_len(radix, probabilities)
+        result = huffman_code.calculate_huffman_avg_len(radix, probabilities)
         print(f"average length of code is {result}")
 
     @do_help_on_error
@@ -294,7 +298,7 @@ class ICCShell(cmd.Cmd):
         args = list(parse_args(args))
         radix = int(args.pop(0))
         probabilities = list(map(Fraction, args))
-        result = ch3.huffman_code.generate_huffman(radix, probabilities)
+        result = huffman_code.generate_huffman(radix, probabilities)
 
         decimal = all(is_decimal(x) for x in args)
         for source, probability, code in result:

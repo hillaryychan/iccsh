@@ -7,7 +7,7 @@ from fractions import Fraction
 from math import isclose
 
 
-def calc_huffman_avg_len(radix, probabilities, *args, **kwargs):
+def calculate_huffman_avg_len(radix, probabilities, *args, **kwargs):
     if not isclose(sum(probabilities), 1):
         probabilities = list(map(str, probabilities))
         raise ValueError(f"Probabilities {probabilities} do not sum to 1")
