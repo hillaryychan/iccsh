@@ -2,7 +2,8 @@ from fractions import Fraction
 from math import isclose
 
 from src.ch4.information_theory import (calculate_entropy,
-                                        shannon_fano_table)
+                                        shannon_fano_table,
+                                        calculate_shannon_fano_avg_len)
 
 
 def test_calculate_entropy():
@@ -33,3 +34,12 @@ def test_shannon_fano_table():
                 (Fraction(3, 40), Fraction(40, 3), 4),
                 (Fraction(1, 40), Fraction(40, 1), 6)]
     assert shannon_fano_table(2, probabilities) == expected
+
+
+def test_shannon_fano_avg_len():
+    probabilities = [Fraction(1, 2), Fraction(1, 3), Fraction(1, 6)]
+    assert calculate_shannon_fano_avg_len(2, probabilities) == Fraction(5, 3)
+
+    probabilities = [Fraction(1, 3), Fraction(1, 4), Fraction(1, 6),
+                     Fraction(3, 20), Fraction(1, 10)]
+    assert calculate_shannon_fano_avg_len(3, probabilities) == Fraction(53, 30)

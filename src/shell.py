@@ -294,7 +294,7 @@ class ICCShell(cmd.Cmd):
         Usage: huffman_generate RADIX PROBABILITY [PROBABILITIES...]
 
         Generate a Huffman code based on the given radix and probabilities of
-        source symbols. The code is generate using the "place high strategy"
+        source symbols. The code is generate using the "place high strategy".
         '''
         args = list(parse_args(args))
         radix = int(args.pop(0))
@@ -312,7 +312,7 @@ class ICCShell(cmd.Cmd):
         '''
         Usage: entropy RADIX PROBABILITY [PROBABILITIES...]
 
-        Calculate the entropy for given probabilities and radix
+        Calculate the entropy for given probabilities and radix.
         '''
         args = list(parse_args(args))
         radix = int(args.pop(0))
@@ -326,7 +326,7 @@ class ICCShell(cmd.Cmd):
         Usage: entropy RADIX PROBABILITY [PROBABILITIES...]
 
         Generate a table indicating the lengths of symbols with provided
-        probabilities if they were encoded using the Shannon-Fano code
+        probabilities if they were encoded using the Shannon-Fano code.
         '''
         args = list(parse_args(args))
         radix = int(args.pop(0))
@@ -342,6 +342,22 @@ class ICCShell(cmd.Cmd):
                 print(f"{p:<7.6} {inverse_p:<7.6} {length}")
             else:
                 print(f"{str(p):7} {str(inverse_p):7} {length}")
+
+    @do_help_on_error
+    def do_shannon_fano_avg_len(self, args):
+        '''
+        Usage: entropy RADIX PROBABILITY [PROBABILITIES...]
+
+        Given the radix and source probabilities, calculate the average length
+        if a message encoded using Shannon-Fano coding.
+        '''
+        args = list(parse_args(args))
+        radix = int(args.pop(0))
+        probs = list(map(Fraction, args))
+        result = information_theory.calculate_shannon_fano_avg_len(radix, probs)
+        if all(is_decimal(x) for x in args):
+            result = float(result)
+        print(f"average length of code is {result}")
 
 
 def parse_args(args):

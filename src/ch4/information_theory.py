@@ -12,4 +12,10 @@ def shannon_fano_table(radix, probabilities, *args, **kwargs):
 
 
 def calculate_shannon_fano_avg_len(radix, probabilities, *args, **kwargs):
-    pass
+    table = shannon_fano_table(radix, probabilities)
+
+    def code_probability(record):
+        (probability, _, length) = record
+        return probability*length
+
+    return sum(map(code_probability, table))
