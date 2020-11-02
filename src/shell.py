@@ -12,6 +12,7 @@ from src.ch3 import (kraft_mcmillan,
                      dictionary_code,
                      arithmetic_code,
                      huffman_code)
+from src.ch4 import information_theory
 
 
 def is_decimal(value):
@@ -305,6 +306,19 @@ class ICCShell(cmd.Cmd):
         for source, probability, code in result:
             probability = probability if not decimal else float(probability)
             print(f"s{source:<5} { str(probability):11} {code}")
+
+    @do_help_on_error
+    def do_entropy(self, args):
+        '''
+        Usage: entropy RADIX PROBABILITY [PROBABILITIES...]
+
+        Calculate the entropy for given probabilities and radix
+        '''
+        args = list(parse_args(args))
+        radix = int(args.pop(0))
+        probabilities = list(map(Fraction, args))
+        result = information_theory.calculate_entropy(radix, probabilities)
+        print(f"entropy is {result}")
 
 
 def parse_args(args):
