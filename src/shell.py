@@ -305,7 +305,7 @@ class ICCShell(cmd.Cmd):
         print("source probability code")
         for source, probability, code in result:
             probability = probability if not decimal else float(probability)
-            print(f"s{source:<5} { str(probability):11} {code}")
+            print(f"s{source:<5} {str(probability):11} {code}")
 
     @do_help_on_error
     def do_entropy(self, args):
@@ -319,6 +319,29 @@ class ICCShell(cmd.Cmd):
         probabilities = list(map(Fraction, args))
         result = information_theory.calculate_entropy(radix, probabilities)
         print(f"entropy is {result}")
+
+    @do_help_on_error
+    def do_shannon_fano(self, args):
+        '''
+        Usage: entropy RADIX PROBABILITY [PROBABILITIES...]
+
+        Generate a table indicating the lengths of symbols with provided
+        probabilities if they were encoded using the Shannon-Fano code
+        '''
+        args = list(parse_args(args))
+        radix = int(args.pop(0))
+        probabilities = list(map(Fraction, args))
+        result = information_theory.shannon_fano_table(radix, probabilities)
+
+        decimal = all(is_decimal(x) for x in args)
+        print("p       1/p     SF_length")
+        for p, inverse_p, length in result:
+            if decimal:
+                p = float(p)
+                inverse_p = float(inverse_p)
+                print(f"{p:<7.6} {inverse_p:<7.6} {length}")
+            else:
+                print(f"{str(p):7} {str(inverse_p):7} {length}")
 
 
 def parse_args(args):
