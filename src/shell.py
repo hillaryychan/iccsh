@@ -124,7 +124,7 @@ class ICCShell(cmd.Cmd):
         result = error_correction.add_codewords(*parse_args(args))
         print(result)
 
-    #  Compression Coding
+    # Ch3. Compression Coding
 
     @do_help_on_error
     def do_kraft_mcmillan(self, args):
@@ -306,6 +306,8 @@ class ICCShell(cmd.Cmd):
         for source, probability, code in result:
             probability = probability if not decimal else float(probability)
             print(f"s{source:<5} {str(probability):11} {code}")
+
+    # Ch4. Information Theory
 
     @do_help_on_error
     def do_entropy(self, args):
