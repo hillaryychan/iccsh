@@ -13,6 +13,7 @@ from src.ch3 import (kraft_mcmillan,
                      arithmetic_code,
                      huffman_code)
 from src.ch4 import information_theory
+from src.ch5 import number_theory
 
 
 def is_decimal(value):
@@ -360,6 +361,39 @@ class ICCShell(cmd.Cmd):
         if all(is_decimal(x) for x in args):
             result = float(result)
         print(f"average length of code is {result}")
+
+    # Ch5. Algebra and Number Theory
+
+    @do_help_on_error
+    def do_gcd(self, args):
+        '''
+        Usage: gcd NUMBER1 NUMBER2
+
+        Calculate the greatest common divisor of 'a' and 'b', gcd(a, b), using
+        the Euclidean Algorithm with
+        a = NUMBER1
+        b = NUMBER2
+        '''
+        args = list(map(int, parse_args(args)))
+        gcd, eqns = number_theory.calculate_gcd(*args)
+        for a, b, q, r in eqns:
+            print(f"{a:5} = {b:<5} * {q} + {r}")
+        print(f"gcd is {gcd}")
+
+    @do_help_on_error
+    def do_bezout_identity(self, args):
+        '''
+        bezout_identity GCD NUMBER1 NUMBER2
+
+        Evaluate the values of x and y Bezout's Identity. That is find x and y
+        in d = gcd(a, b) = ax + by with
+        d = GCD
+        a = NUMBER1
+        b = NUMBER2
+        '''
+        args = list(map(int, parse_args(args)))
+        x, y = number_theory.solve_bezout_identity(*args)
+        print(f"x is {x}, y is {y}")
 
 
 def parse_args(args):
