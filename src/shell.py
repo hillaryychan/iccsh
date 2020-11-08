@@ -395,6 +395,19 @@ class ICCShell(cmd.Cmd):
         x, y = number_theory.solve_bezout_identity(*args)
         print(f"x is {x}, y is {y}")
 
+    @do_help_on_error
+    def do_eulers_phi(self, args):
+        '''
+        eulers phi NUMBER
+
+        Find the number of 'units' in Z_m (integer moduler).
+        That is the number of elements in set {a ∈ Z_m: gcd(a, m) = 1}
+        '''
+        args = list(map(int, parse_args(args)))
+        a = args.pop()
+        result = number_theory.find_eulers_phi(a, *args)
+        print(f"ϕ({a}) = {result}")
+
 
 def parse_args(args):
     # tuple cause we don't want the arguments to be mutated :)

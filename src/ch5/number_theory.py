@@ -36,3 +36,13 @@ def solve_bezout_identity(d, a, b, *args, **kwargs):
         x, y = y, x
     print(f"{d} = {a}*{x} + {b}*{y}")
     return x, y
+
+
+def find_eulers_phi(m):
+    def is_unit(a, m):
+        gcd, _ = calculate_gcd(a, m)
+        return gcd == 1
+
+    units = list(filter(lambda a: is_unit(a, m), range(1, m)))
+    print('{' + ', '.join(map(str, units)) + '}')
+    return len(units)
