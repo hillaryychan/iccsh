@@ -2,6 +2,9 @@ from math import floor
 
 
 def calculate_gcd(a, b, *args, **kwargs):
+    if a == 0 or b == 0:
+        return None, []
+
     if max(a, b) == b:
         a, b = b, a
 
@@ -43,6 +46,6 @@ def find_eulers_phi(m):
         gcd, _ = calculate_gcd(a, m)
         return gcd == 1
 
-    units = list(filter(lambda a: is_unit(a, m), range(1, m)))
+    units = list(filter(lambda a: is_unit(a, m), range(m)))
     print('{' + ', '.join(map(str, units)) + '}')
     return len(units)

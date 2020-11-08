@@ -14,6 +14,12 @@ def test_calculate_gcd():
     assert result == 1
 
 
+def test_calculate_gcd_with_zero():
+    assert calculate_gcd(324, 0) == (None, [])
+    assert calculate_gcd(0, 1513) == (None, [])
+    assert calculate_gcd(0, 0) == (None, [])
+
+
 def test_solve_bezout_identity():
     assert solve_bezout_identity(12, 324, 3876) == (12, -1)
     assert solve_bezout_identity(17, 7412, 1513) == (-10, 49)

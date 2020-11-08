@@ -108,12 +108,15 @@ class ICCShell(cmd.Cmd):
         '''
         Usage: congruence a m [b]
 
-        Evaluate linear congruences a*x ≡ b (mod m).  '''
+        Evaluate linear congruences a*x ≡ b (mod m).
+        '''
         args = list(map(int, parse_args(args)))
         target = args.pop(2) if len(args) > 2 else None
         result = error_correction.eval_congruence(*args, b=target)
         if result is not None:
             print(f"x is {result}")
+        else:
+            print("There is no solution.")
 
     @do_help_on_error
     def do_add_codewords(self, args):
