@@ -49,3 +49,11 @@ def find_eulers_phi(m):
     units = list(filter(lambda a: is_unit(a, m), range(m)))
     print('{' + ', '.join(map(str, units)) + '}')
     return len(units)
+
+
+def find_order(m, a, *args, **kwargs):
+    for i in range(1, m):
+        if a**i % m == 1:
+            return i
+
+    return -1

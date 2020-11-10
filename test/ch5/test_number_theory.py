@@ -1,6 +1,7 @@
 from src.ch5.number_theory import (calculate_gcd,
                                    solve_bezout_identity,
-                                   find_eulers_phi)
+                                   find_eulers_phi,
+                                   find_order)
 
 
 def test_calculate_gcd():
@@ -30,3 +31,9 @@ def test_eulers_phi():
     assert find_eulers_phi(24) == 8
     assert find_eulers_phi(36) == 12
     assert find_eulers_phi(17) == 16
+
+
+def test_order():
+    assert find_order(17, 7) == 16
+    assert find_order(12, 5) == 2
+    assert find_order(7, 3) == 6

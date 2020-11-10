@@ -386,7 +386,7 @@ class ICCShell(cmd.Cmd):
     @do_help_on_error
     def do_bezout_identity(self, args):
         '''
-        bezout_identity GCD NUMBER1 NUMBER2
+        Usage: bezout_identity GCD NUMBER1 NUMBER2
 
         Evaluate the values of x and y Bezout's Identity. That is find x and y
         in d = gcd(a, b) = ax + by with
@@ -401,7 +401,7 @@ class ICCShell(cmd.Cmd):
     @do_help_on_error
     def do_eulers_phi(self, args):
         '''
-        eulers phi NUMBER
+        Usage: eulers phi NUMBER
 
         Find the number of 'units' in Z_m (integer moduler).
         That is the number of elements in set {a ∈ Z_m: gcd(a, m) = 1}
@@ -410,6 +410,18 @@ class ICCShell(cmd.Cmd):
         a = args.pop()
         result = number_theory.find_eulers_phi(a, *args)
         print(f"ϕ({a}) = {result}")
+
+    @do_help_on_error
+    def do_order(self, args):
+        '''
+        Usage: order MOD_BASE NUMBER
+        '''
+        args = list(map(int, parse_args(args)))
+        result = number_theory.find_order(*args)
+        if result != -1:
+            print(f"order is {result}")
+        else:
+            print("order is greater than the modular base")
 
 
 def parse_args(args):
