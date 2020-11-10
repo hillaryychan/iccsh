@@ -436,6 +436,7 @@ class ICCShell(cmd.Cmd):
         result = number_theory.find_primitive_elements(*args)
         if result:
             print(f"primitives are {result}")
+            print(f"no. of primitives is {len(result)}")
         else:
             print("there are no primitive elements")
 
