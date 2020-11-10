@@ -403,7 +403,7 @@ class ICCShell(cmd.Cmd):
         '''
         Usage: eulers phi NUMBER
 
-        Find the number of 'units' in Z_m (integer moduler).
+        Find the number of 'units' in Z_m (integer modular).
         That is the number of elements in set {a ∈ Z_m: gcd(a, m) = 1}
         '''
         args = list(map(int, parse_args(args)))
@@ -415,6 +415,8 @@ class ICCShell(cmd.Cmd):
     def do_order(self, args):
         '''
         Usage: order MOD_BASE NUMBER
+
+        Find the order of a number for a given modular base
         '''
         args = list(map(int, parse_args(args)))
         result = number_theory.find_order(*args)
@@ -422,6 +424,20 @@ class ICCShell(cmd.Cmd):
             print(f"order is {result}")
         else:
             print("order is greater than the modular base")
+
+    @do_help_on_error
+    def do_primitive_elements(self, args):
+        '''
+        Usage: primitive_elements NUMBER
+
+        Find the primitive elements of a given number
+        '''
+        args = list(map(int, parse_args(args)))
+        result = number_theory.find_primitive_elements(*args)
+        if result:
+            print(f"primitives are {result}")
+        else:
+            print("there are no primitive elements")
 
 
 def parse_args(args):

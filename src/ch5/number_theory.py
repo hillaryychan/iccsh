@@ -41,12 +41,15 @@ def solve_bezout_identity(d, a, b, *args, **kwargs):
     return x, y
 
 
-def find_eulers_phi(m):
+def get_modular_units(m):
     def is_unit(a, m):
         gcd, _ = calculate_gcd(a, m)
         return gcd == 1
+    return list(filter(lambda a: is_unit(a, m), range(m)))
 
-    units = list(filter(lambda a: is_unit(a, m), range(m)))
+
+def find_eulers_phi(m):
+    units = get_modular_units(m)
     print('{' + ', '.join(map(str, units)) + '}')
     return len(units)
 
@@ -57,3 +60,11 @@ def find_order(m, a, *args, **kwargs):
             return i
 
     return -1
+
+
+def find_primitive_elements(n):
+    units = get_modular_units(n)
+
+    def is_primitive(a, n):
+        return find_order(n, a) == len(units)
+    return list(filter(lambda a: is_primitive(a, n), units))
