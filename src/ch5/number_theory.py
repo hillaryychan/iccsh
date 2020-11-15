@@ -1,4 +1,4 @@
-from math import floor
+from math import floor, ceil, sqrt
 
 
 def calculate_gcd(a, b, *args, **kwargs):
@@ -70,9 +70,23 @@ def find_primitive_elements(n):
     return list(filter(lambda a: is_primitive(a, n), units))
 
 
-def is_pseudo_prime(n, a):
+def is_pseudo_prime(n, a, *args, **kwargs):
     gcd, _ = calculate_gcd(n, a)
     if gcd != 1:
         return False
 
     return a**(n-1) % n == 1
+
+
+def fermat_factorise(n, *args, **kwargs):
+    if n % 2 == 0:
+        raise ValueError(f"{n} is not odd for Fermat factorisation")
+    start = ceil(sqrt(n))
+    a, b = 0, 0
+    for t in range(start, n+1):
+        s = sqrt(t**2 - n)
+        if s.is_integer():
+            a = int(t + s)
+            b = int(t - s)
+            break
+    return (a, b)

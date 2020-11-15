@@ -416,7 +416,7 @@ class ICCShell(cmd.Cmd):
         '''
         Usage: order MOD_BASE NUMBER
 
-        Find the order of a number for a given modular base
+        Find the order of a number for a given modular base.
         '''
         args = list(map(int, parse_args(args)))
         result = number_theory.find_order(*args)
@@ -430,7 +430,7 @@ class ICCShell(cmd.Cmd):
         '''
         Usage: primitive_elements NUMBER
 
-        Find the primitive elements of a given number
+        Find the primitive elements of a given number.
         '''
         args = list(map(int, parse_args(args)))
         result = number_theory.find_primitive_elements(*args)
@@ -445,7 +445,7 @@ class ICCShell(cmd.Cmd):
         '''
         Usage: pseudo_prime N BASE [BASES...]
 
-        Evaluate whether N is pseudo-prime to the given bases
+        Evaluate whether N is pseudo-prime to the given bases.
         '''
         args = list(map(int, parse_args(args)))
         n = args.pop(0)
@@ -454,6 +454,18 @@ class ICCShell(cmd.Cmd):
             result = number_theory.is_pseudo_prime(n, a)
             colour = Fore.GREEN if result else Fore.RED
             print(f"{a} is {colour}{result}{Fore.RESET}")
+
+    @do_help_on_error
+    def do_fermat_factorise(self, args):
+        '''
+        Usage: fermat_factorise N
+
+        Fermat factorise N where N is an add integer.
+        '''
+        args = list(map(int, parse_args(args)))
+        n = args.pop(0)
+        (a, b) = number_theory.fermat_factorise(n, *args)
+        print(f"{n} = {a}*{b}")
 
 
 def parse_args(args):
