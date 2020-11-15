@@ -68,3 +68,11 @@ def find_primitive_elements(n):
     def is_primitive(a, n):
         return find_order(n, a) == len(units)
     return list(filter(lambda a: is_primitive(a, n), units))
+
+
+def is_pseudo_prime(n, a):
+    gcd, _ = calculate_gcd(n, a)
+    if gcd != 1:
+        return False
+
+    return a**(n-1) % n == 1

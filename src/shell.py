@@ -440,6 +440,21 @@ class ICCShell(cmd.Cmd):
         else:
             print("there are no primitive elements")
 
+    @do_help_on_error
+    def do_pseudo_prime(self, args):
+        '''
+        Usage: pseudo_prime N BASE [BASES...]
+
+        Evaluate whether N is pseudo-prime to the given bases
+        '''
+        args = list(map(int, parse_args(args)))
+        n = args.pop(0)
+        print(f"{n} is pseudo-prime to base")
+        for a in args:
+            result = number_theory.is_pseudo_prime(n, a)
+            colour = Fore.GREEN if result else Fore.RED
+            print(f"{a} is {colour}{result}{Fore.RESET}")
+
 
 def parse_args(args):
     # tuple cause we don't want the arguments to be mutated :)

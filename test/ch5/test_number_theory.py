@@ -2,7 +2,8 @@ from src.ch5.number_theory import (calculate_gcd,
                                    solve_bezout_identity,
                                    find_eulers_phi,
                                    find_order,
-                                   find_primitive_elements)
+                                   find_primitive_elements,
+                                   is_pseudo_prime)
 
 
 def test_calculate_gcd():
@@ -44,3 +45,11 @@ def test_find_primitive_elements():
     assert find_primitive_elements(22) == [7, 13, 17, 19]
     assert find_primitive_elements(12) == []
     assert find_primitive_elements(7) == [3, 5]
+
+
+def test_is_pseudo_prime():
+    assert is_pseudo_prime(15, 2) is False
+    assert is_pseudo_prime(15, 4) is True
+
+    assert is_pseudo_prime(121, 5) is False
+    assert is_pseudo_prime(121, 3) is True
