@@ -78,6 +78,32 @@ def is_pseudo_prime(n, a, *args, **kwargs):
     return a**(n-1) % n == 1
 
 
+def is_strong_pseudo_prime(n, a, *args, **kwargs):
+    '''
+    Use the Miller-Rabin probabilistic primality test for given base a
+    '''
+    # find s and t
+    s, t = -1, -1
+    for i in range(n):
+        t = (n-1)/2**i
+        if t % 2 == 1:
+            s = i
+            t = int(t)
+            break
+    if s == -1:
+        raise ValueError(f"Could not find values s and t s.t {n} = 2^s*t + 1")
+
+    if a**t % n == 1:
+        return True
+
+    for r in range(s):
+        power = (2**r) * t
+        if a**power % n == n-1:
+            return True
+
+    return False
+
+
 def fermat_factorise(n, *args, **kwargs):
     if n % 2 == 0:
         raise ValueError(f"{n} is not odd for Fermat factorisation")
