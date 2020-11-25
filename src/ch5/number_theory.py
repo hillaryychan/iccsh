@@ -1,4 +1,4 @@
-from math import floor, ceil, sqrt
+from math import floor
 
 
 def calculate_gcd(a, b, *args, **kwargs):
@@ -68,51 +68,3 @@ def find_primitive_elements(n):
     def is_primitive(a, n):
         return find_order(n, a) == len(units)
     return list(filter(lambda a: is_primitive(a, n), units))
-
-
-def is_pseudo_prime(n, a, *args, **kwargs):
-    gcd, _ = calculate_gcd(n, a)
-    if gcd != 1:
-        return False
-
-    return a**(n-1) % n == 1
-
-
-def is_strong_pseudo_prime(n, a, *args, **kwargs):
-    '''
-    Use the Miller-Rabin probabilistic primality test for given base a
-    '''
-    # find s and t
-    s, t = -1, -1
-    for i in range(n):
-        t = (n-1)/2**i
-        if t % 2 == 1:
-            s = i
-            t = int(t)
-            break
-    if s == -1:
-        raise ValueError(f"Could not find values s and t s.t {n} = 2^s*t + 1")
-
-    if a**t % n == 1:
-        return True
-
-    for r in range(s):
-        power = (2**r) * t
-        if a**power % n == n-1:
-            return True
-
-    return False
-
-
-def fermat_factorise(n, *args, **kwargs):
-    if n % 2 == 0:
-        raise ValueError(f"{n} is not odd for Fermat factorisation")
-    start = ceil(sqrt(n))
-    a, b = 0, 0
-    for t in range(start, n+1):
-        s = sqrt(t**2 - n)
-        if s.is_integer():
-            a = int(t + s)
-            b = int(t - s)
-            break
-    return (a, b)

@@ -13,7 +13,8 @@ from src.ch3 import (kraft_mcmillan,
                      arithmetic_code,
                      huffman_code)
 from src.ch4 import information_theory
-from src.ch5 import number_theory
+from src.ch5 import (number_theory,
+                     primality_testing)
 
 
 def is_decimal(value):
@@ -440,18 +441,56 @@ class ICCShell(cmd.Cmd):
         else:
             print("there are no primitive elements")
 
+    def do_is_prime(self, args):
+        '''
+        Usage: is_prime N
+
+        Evaluate whether N is prime or not
+        '''
+        args = list(map(int, parse_args(args)))
+        for a in args:
+            result = primality_testing.is_prime(a)
+            prime_val = "prime" if result else "not prime"
+            print(f"{a} is {prime_val}")
+
+    def do_generate_primes(self, args):
+        '''
+        Usage: generate_primes N
+
+        Generate all prime numbers less than or equal to N
+        '''
+        args = list(map(int, parse_args(args)))
+        result = primality_testing.generate_primes(*args)
+        print(result)
+
     @do_help_on_error
     def do_pseudo_prime(self, args):
         '''
         Usage: pseudo_prime N BASE [BASES...]
 
-        Evaluate whether N is pseudo-prime to the given bases.
+        Evaluate whether N is pseudo-prime to the given bases using the
+        pseudo-prime test.
         '''
         args = list(map(int, parse_args(args)))
         n = args.pop(0)
         print(f"{n} is pseudo-prime to base")
         for a in args:
-            result = number_theory.is_pseudo_prime(n, a)
+            result = primality_testing.is_pseudo_prime(n, a)
+            colour = Fore.GREEN if result else Fore.RED
+            print(f"{a} is {colour}{result}{Fore.RESET}")
+
+    @do_help_on_error
+    def do_lucas_prime_test(self, args):
+        '''
+        Usage: lucas_prime_test N BASE [BASES...]
+
+        Evaluate whether N is prime to the given bases using Lucas' test.
+        '''
+        args = list(map(int, parse_args(args)))
+        n = args.pop(0)
+        print(f"{n} is pseudo-prime to base")
+        for a in args:
+            result = primality_testing.is_prime_lucas_test(n, a)
             colour = Fore.GREEN if result else Fore.RED
             print(f"{a} is {colour}{result}{Fore.RESET}")
 
@@ -460,13 +499,14 @@ class ICCShell(cmd.Cmd):
         '''
         Usage: strong_pseudo_prime N BASE [BASES...]
 
-        Evaluate whether N is a strong pseudo-prime to the given bases.
+        Evaluate whether N is a strong pseudo-prime to the given bases using
+        the Miller-Rabin primality test
         '''
         args = list(map(int, parse_args(args)))
         n = args.pop(0)
         print(f"{n} is pseudo-prime to base")
         for a in args:
-            result = number_theory.is_strong_pseudo_prime(n, a)
+            result = primality_testing.is_strong_pseudo_prime(n, a)
             colour = Fore.GREEN if result else Fore.RED
             print(f"{a} is {colour}{result}{Fore.RESET}")
 
@@ -479,7 +519,7 @@ class ICCShell(cmd.Cmd):
         '''
         args = list(map(int, parse_args(args)))
         n = args.pop(0)
-        (a, b) = number_theory.fermat_factorise(n, *args)
+        (a, b) = primality_testing.fermat_factorise(n, *args)
         print(f"{n} = {a}*{b}")
 
 
