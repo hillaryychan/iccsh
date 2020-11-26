@@ -1,6 +1,14 @@
 import pytest
-from src.ch5.primality_testing import (is_pseudo_prime,
+from src.ch5.primality_testing import (is_prime,
+                                       is_pseudo_prime,
+                                       generate_primes,
+                                       is_prime_lucas_test,
                                        fermat_factorise)
+
+
+def test_is_prime():
+    assert is_prime(97) is True
+    assert is_prime(98) is False
 
 
 def test_is_pseudo_prime():
@@ -9,6 +17,16 @@ def test_is_pseudo_prime():
 
     assert is_pseudo_prime(121, 5) is False
     assert is_pseudo_prime(121, 3) is True
+
+
+def test_generate_primes():
+    assert generate_primes(20) == [2, 3, 5, 7, 11, 13, 17, 19]
+    assert generate_primes(19) == [2, 3, 5, 7, 11, 13, 17, 19]
+
+
+def test_is_prime_lucas_test():
+    assert is_prime_lucas_test(257, 3) is True
+    assert is_prime_lucas_test(257, 2) is False
 
 
 def test_fermat_factorise():
