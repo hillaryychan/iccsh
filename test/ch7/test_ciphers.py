@@ -1,9 +1,12 @@
+from math import isclose
 from src.ch7.ciphers import (shift_cipher,
                              vigenere_cipher,
                              plaintext_feedback_encode,
                              plaintext_feedback_decode,
                              ciphertext_feedback_encode,
-                             ciphertext_feedback_decode)
+                             ciphertext_feedback_decode,
+                             index_of_coincidence,
+                             estimate_key_len)
 
 
 def test_shift_cipher():
@@ -49,3 +52,15 @@ def test_ciphertext_feedback_decode():
     message = ['VVLW', 'DN', 'LJ', 'HKLVWVP']
     expected = 'THIS IS AN EXAMPLE'
     assert ciphertext_feedback_decode('CODE', *message) == expected
+
+
+def test_incidence_of_coincidence():
+    message = ['KMHZ', 'HTS,' 'Q', 'OWWM', 'APHB', 'FWB', 'KYCZP',
+               'APPA', 'LFHU', 'HVK', 'MURVGLL', 'APL', 'KVCYAL!']
+    assert isclose(index_of_coincidence(*message), 0.04784313725490196)
+
+
+def test_estimate_key_len():
+    message = ['KMHZ', 'HTS,' 'Q', 'OWWM', 'APHB', 'FWB', 'KYCZP',
+               'APPA', 'LFHU', 'HVK', 'MURVGLL', 'APL', 'KVCYAL!']
+    assert isclose(estimate_key_len(*message), 2.8158169193371227)

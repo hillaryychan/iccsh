@@ -528,7 +528,7 @@ class ICCShell(cmd.Cmd):
     @do_help_on_error
     def do_caesar_cipher(self, args):
         '''
-        Usage: caesar_cipher MESSAGE [MESSAGES...]
+        Usage: caesar_cipher MESSAGE
 
         Shift a message using the Caesar cipher.
         '''
@@ -538,7 +538,7 @@ class ICCShell(cmd.Cmd):
     @do_help_on_error
     def do_shift_cipher(self, args):
         '''
-        Usage: shift_cipher SHIFT MESSAGE [MESSAGES...]
+        Usage: shift_cipher SHIFT MESSAGE
 
         Shift a message using a given shift.
         '''
@@ -550,7 +550,7 @@ class ICCShell(cmd.Cmd):
     @do_help_on_error
     def do_vigenere_encode(self, args):
         '''
-        Usage: vigenere_encode KEY MESSAGE [MESSAGES...]
+        Usage: vigenere_encode KEY MESSAGE
 
         Encode a message with the vigenere cipher using the given key.
         '''
@@ -560,7 +560,7 @@ class ICCShell(cmd.Cmd):
     @do_help_on_error
     def do_vigenere_decode(self, args):
         '''
-        Usage: vigenere_decode KEY MESSAGE [MESSAGES...]
+        Usage: vigenere_decode KEY MESSAGE
 
         Decode a message with the vigenere cipher using the given key.
         '''
@@ -570,7 +570,7 @@ class ICCShell(cmd.Cmd):
     @do_help_on_error
     def do_plaintext_feedback_encode(self, args):
         '''
-        Usage: plaintext_feedback_encode KEY MESSAGE [MESSAGES...]
+        Usage: plaintext_feedback_encode KEY MESSAGE
 
         Encode a message using the plaintext feedback cipher.
         '''
@@ -580,7 +580,7 @@ class ICCShell(cmd.Cmd):
     @do_help_on_error
     def do_plaintext_feedback_decode(self, args):
         '''
-        Usage: plaintext_feedback_decode KEY MESSAGE [MESSAGES...]
+        Usage: plaintext_feedback_decode KEY MESSAGE
 
         Decode a message encoded using the plaintext feedback cipher.
         '''
@@ -590,7 +590,7 @@ class ICCShell(cmd.Cmd):
     @do_help_on_error
     def do_ciphertext_feedback_encode(self, args):
         '''
-        Usage: ciphertext_feedback_encode KEY MESSAGE [MESSAGES...]
+        Usage: ciphertext_feedback_encode KEY MESSAGE
 
         Encode a message using the ciphertext feedback cipher.
         '''
@@ -600,7 +600,7 @@ class ICCShell(cmd.Cmd):
     @do_help_on_error
     def do_ciphertext_feedback_decode(self, args):
         '''
-        Usage: ciphertext_feedback_decode KEY MESSAGE [MESSAGES...]
+        Usage: ciphertext_feedback_decode KEY MESSAGE
 
         Decode a message encoded using the ciphertext feedback cipher.
         '''
@@ -610,7 +610,7 @@ class ICCShell(cmd.Cmd):
     @do_help_on_error
     def do_feedback_cipher_encode(self, args):
         '''
-        Usage: feedback_cipher_encode KEY MESSAGE [MESSAGE...]
+        Usage: feedback_cipher_encode KEY MESSAGE
 
         Encode a message using the plaintext and ciphertext feeback cipher and
         output the corresponding ciphertext for each encoding.
@@ -624,7 +624,7 @@ class ICCShell(cmd.Cmd):
     @do_help_on_error
     def do_feedback_cipher_decode(self, args):
         '''
-        Usage: feedback_cipher_decode KEY MESSAGE [MESSAGE...]
+        Usage: feedback_cipher_decode KEY MESSAGE
 
         Decode a message using the plaintext and ciphertext feeback cipher and
         output the corresponding plaintext for each encoding.
@@ -636,6 +636,26 @@ class ICCShell(cmd.Cmd):
         ciphertext = ciphers.ciphertext_feedback_decode(*args)
         print(f"plaintext : {plaintext}")
         print(f"ciphertext: {ciphertext}")
+
+    @do_help_on_error
+    def do_index_of_coincidence(self, args):
+        '''
+        Usage: index_of_coincidence MESSAGE
+
+        Calculate the index of coincidence of a given message.
+        '''
+        result = ciphers.index_of_coincidence(*parse_args(args))
+        print(f"index of coincidence is {result}")
+
+    @do_help_on_error
+    def do_estimate_key_length(self, args):
+        '''
+        Usage: estimate_key_length MESSAGE
+
+        Estimate the key length of an encrypted message.
+        '''
+        result = ciphers.estimate_key_len(*parse_args(args))
+        print(f"r ≈ {result}")
 
 
 def parse_args(args):

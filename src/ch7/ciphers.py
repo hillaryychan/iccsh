@@ -1,3 +1,6 @@
+from collections import Counter
+
+
 def shift_letter(shift, letter):
     if not letter.isalpha():
         return letter
@@ -96,3 +99,22 @@ def ciphertext_feedback_encode(key, *messages, **kwargs):
 def ciphertext_feedback_decode(key, *messages, **kwargs):
     msg_key = filter(lambda c: c.isalpha(), key + ''.join(messages))
     return vigenere_cipher(msg_key, *messages, decode=True)
+
+
+def index_of_coincidence(*messages, **kwargs):
+    messages = map(lambda m: m.upper(), messages)
+    message = ''.join(messages)
+    message = ''.join(filter(lambda c: c.isalpha(), message))
+    msg_len = len(message)
+    freq = Counter(message).values()
+    print(Counter(message))
+    return (sum(map(lambda f: f*f, freq)) - msg_len)/(msg_len*msg_len - msg_len)
+
+
+def estimate_key_len(*messages, **kwargs):
+    messages = map(lambda m: m.upper(), messages)
+    message = ''.join(messages)
+    message = ''.join(filter(lambda c: c.isalpha(), message))
+    msg_len = len(message)
+    ioc = index_of_coincidence(message)
+    return (0.0273*msg_len)/((msg_len - 1) * ioc - 0.0385*msg_len + 0.0658)
