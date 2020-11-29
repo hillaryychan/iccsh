@@ -1,5 +1,9 @@
 from src.ch7.ciphers import (shift_cipher,
-                             vigenere_cipher)
+                             vigenere_cipher,
+                             plaintext_feedback_encode,
+                             plaintext_feedback_decode,
+                             ciphertext_feedback_encode,
+                             ciphertext_feedback_decode)
 
 
 def test_shift_cipher():
@@ -21,3 +25,27 @@ def test_vigenere_cipher():
     expected = ('DEAR ALL, I HOPE THAT YOU CRUSH '
                 'THIS EXAM AND ENJOYED THE COURSE!')
     assert vigenere_cipher('HI', *message, decode=True) == expected
+
+
+def test_plaintext_feedback_encode():
+    message = ['THIS', 'IS', 'AN', 'EXAMPLE']
+    expected = 'VVLW BZ IF MPAZTIE'
+    assert plaintext_feedback_encode('CODE', *message) == expected
+
+
+def test_plaintext_feedback_decode():
+    message = ['VVLW', 'BZ', 'IF', 'MPAZTIE']
+    expected = 'THIS IS AN EXAMPLE'
+    assert plaintext_feedback_decode('CODE', *message) == expected
+
+
+def test_ciphertext_feedback_encode():
+    message = ['THIS', 'IS', 'AN', 'EXAMPLE']
+    expected = 'VVLW DN LJ HKLVWVP'
+    assert ciphertext_feedback_encode('CODE', *message) == expected
+
+
+def test_ciphertext_feedback_decode():
+    message = ['VVLW', 'DN', 'LJ', 'HKLVWVP']
+    expected = 'THIS IS AN EXAMPLE'
+    assert ciphertext_feedback_decode('CODE', *message) == expected
