@@ -15,6 +15,7 @@ from src.ch3 import (kraft_mcmillan,
 from src.ch4 import information_theory
 from src.ch5 import (number_theory,
                      primality_testing)
+from src.ch7 import (ciphers)
 
 
 def is_decimal(value):
@@ -521,6 +522,30 @@ class ICCShell(cmd.Cmd):
         n = args.pop(0)
         (a, b) = primality_testing.fermat_factorise(n, *args)
         print(f"{n} = {a}*{b}")
+
+    # Ch7. Cryptography
+
+    @do_help_on_error
+    def do_caesar_cipher(self, args):
+        '''
+        Usage: caesar_cipher MESSAGE [MESSAGES...]
+
+        Shift a message using the Caesar cipher.
+        '''
+        result = ciphers.shift_encode(3, *parse_args(args))
+        print(result)
+
+    @do_help_on_error
+    def do_shift_cipher(self, args):
+        '''
+        Usage: shift_cipher SHIFT MESSAGE [MESSAGES...]
+
+        Shift a message using a given shift.
+        '''
+        args = list(parse_args(args))
+        shift = int(args.pop(0))
+        result = ciphers.shift_encode(shift, *args)
+        print(result)
 
 
 def parse_args(args):
