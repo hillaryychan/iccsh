@@ -552,7 +552,7 @@ class ICCShell(cmd.Cmd):
         '''
         Usage: vigenere_encode KEY MESSAGE [MESSAGES...]
 
-        Encode a message with the vigenere cipher using the given key
+        Encode a message with the vigenere cipher using the given key.
         '''
         result = ciphers.vigenere_cipher(*parse_args(args), decode=False)
         print(result)
@@ -562,10 +562,80 @@ class ICCShell(cmd.Cmd):
         '''
         Usage: vigenere_decode KEY MESSAGE [MESSAGES...]
 
-        Decode a message with the vigenere cipher using the given key
+        Decode a message with the vigenere cipher using the given key.
         '''
         result = ciphers.vigenere_cipher(*parse_args(args), decode=True)
         print(result)
+
+    @do_help_on_error
+    def do_plaintext_feedback_encode(self, args):
+        '''
+        Usage: plaintext_feedback_encode KEY MESSAGE [MESSAGES...]
+
+        Encode a message using the plaintext feedback cipher.
+        '''
+        result = ciphers.plaintext_feedback_encode(*parse_args(args))
+        print(result)
+
+    @do_help_on_error
+    def do_plaintext_feedback_decode(self, args):
+        '''
+        Usage: plaintext_feedback_decode KEY MESSAGE [MESSAGES...]
+
+        Decode a message encoded using the plaintext feedback cipher.
+        '''
+        result = ciphers.plaintext_feedback_decode(*parse_args(args))
+        print(result)
+
+    @do_help_on_error
+    def do_ciphertext_feedback_encode(self, args):
+        '''
+        Usage: ciphertext_feedback_encode KEY MESSAGE [MESSAGES...]
+
+        Encode a message using the ciphertext feedback cipher.
+        '''
+        result = ciphers.ciphertext_feedback_encode(*parse_args(args))
+        print(result)
+
+    @do_help_on_error
+    def do_ciphertext_feedback_decode(self, args):
+        '''
+        Usage: ciphertext_feedback_decode KEY MESSAGE [MESSAGES...]
+
+        Decode a message encoded using the ciphertext feedback cipher.
+        '''
+        result = ciphers.ciphertext_feedback_decode(*parse_args(args))
+        print(result)
+
+    @do_help_on_error
+    def do_feedback_cipher_encode(self, args):
+        '''
+        Usage: feedback_cipher_encode KEY MESSAGE [MESSAGE...]
+
+        Encode a message using the plaintext and ciphertext feeback cipher and
+        output the corresponding ciphertext for each encoding.
+        '''
+        args = parse_args(args)
+        plaintext = ciphers.plaintext_feedback_encode(*args)
+        ciphertext = ciphers.ciphertext_feedback_encode(*args)
+        print(f"plaintext : {plaintext}")
+        print(f"ciphertext: {ciphertext}")
+
+    @do_help_on_error
+    def do_feedback_cipher_decode(self, args):
+        '''
+        Usage: feedback_cipher_decode KEY MESSAGE [MESSAGE...]
+
+        Decode a message using the plaintext and ciphertext feeback cipher and
+        output the corresponding plaintext for each encoding.
+        Useful when figuring out whether a message was encoded using plaintext
+        or ciphertext feedback.
+        '''
+        args = parse_args(args)
+        plaintext = ciphers.plaintext_feedback_decode(*args)
+        ciphertext = ciphers.ciphertext_feedback_decode(*args)
+        print(f"plaintext : {plaintext}")
+        print(f"ciphertext: {ciphertext}")
 
 
 def parse_args(args):

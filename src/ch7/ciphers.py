@@ -18,6 +18,9 @@ def shift_cipher(shift, *messages, **kwargs):
 
 
 def get_alpha_pos(letter):
+    if not letter.isalpha():
+        raise ValueError(f"get_alpha_pos: {letter} is not an alphabetical char")
+
     start = ord('a')
     if (letter.isupper()):
         start = ord('A')
@@ -33,7 +36,10 @@ def vigenere_shift(shifts, pos_letter):
     return shift_letter(used_shift, letter)
 
 
-def vigenere_enumerate(message):
+def alpha_enumerate(message):
+    '''
+    Enumerate only alphabetical chars
+    '''
     enumerated = []
     num = 0
     for c in message:
@@ -51,4 +57,42 @@ def vigenere_cipher(key, *messages, decode=False, **kwargs):
     if decode:
         shifts = list(map(lambda s: -s, shifts))
     return ''.join(map(lambda x: vigenere_shift(shifts, x),
-                       vigenere_enumerate(message)))
+                       alpha_enumerate(message)))
+
+
+def plaintext_feedback_encode(key, *messages, **kwargs):
+    msg_key = filter(lambda c: c.isalpha(), key + ''.join(messages))
+    return vigenere_cipher(msg_key, *messages)
+
+
+def plaintext_feedback_decode(key, *messages, **kwargs):
+    message = ' '.join(messages)
+    shifts = list(map(lambda x: -get_alpha_pos(x), key))
+    decoded = ''
+    for pos, c in alpha_enumerate(message):
+        if c.isalpha():
+            letter = shift_letter(shifts[pos], c)
+            decoded += letter
+            shifts.append(-get_alpha_pos(letter))
+        else:
+            decoded += c
+    return decoded
+
+
+def ciphertext_feedback_encode(key, *messages, **kwargs):
+    message = ' '.join(messages)
+    shifts = list(map(lambda x: get_alpha_pos(x), key))
+    encoded = ''
+    for pos, c in alpha_enumerate(message):
+        if c.isalpha():
+            letter = shift_letter(shifts[pos], c)
+            encoded += letter
+            shifts.append(get_alpha_pos(letter))
+        else:
+            encoded += c
+    return encoded
+
+
+def ciphertext_feedback_decode(key, *messages, **kwargs):
+    msg_key = filter(lambda c: c.isalpha(), key + ''.join(messages))
+    return vigenere_cipher(msg_key, *messages, decode=True)
