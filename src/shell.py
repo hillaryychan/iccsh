@@ -532,7 +532,7 @@ class ICCShell(cmd.Cmd):
 
         Shift a message using the Caesar cipher.
         '''
-        result = ciphers.shift_encode(3, *parse_args(args))
+        result = ciphers.shift_cipher(3, *parse_args(args))
         print(result)
 
     @do_help_on_error
@@ -544,7 +544,27 @@ class ICCShell(cmd.Cmd):
         '''
         args = list(parse_args(args))
         shift = int(args.pop(0))
-        result = ciphers.shift_encode(shift, *args)
+        result = ciphers.shift_cipher(shift, *args)
+        print(result)
+
+    @do_help_on_error
+    def do_vigenere_encode(self, args):
+        '''
+        Usage: vigenere_encode KEY MESSAGE [MESSAGES...]
+
+        Encode a message with the vigenere cipher using the given key
+        '''
+        result = ciphers.vigenere_cipher(*parse_args(args), decode=False)
+        print(result)
+
+    @do_help_on_error
+    def do_vigenere_decode(self, args):
+        '''
+        Usage: vigenere_decode KEY MESSAGE [MESSAGES...]
+
+        Decode a message with the vigenere cipher using the given key
+        '''
+        result = ciphers.vigenere_cipher(*parse_args(args), decode=True)
         print(result)
 
 
