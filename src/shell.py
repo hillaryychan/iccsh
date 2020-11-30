@@ -686,6 +686,26 @@ class ICCShell(cmd.Cmd):
         result = cryptography.rsa_exponent_key(*args)
         print(f"d = {result}")
 
+    @do_help_on_error
+    def do_rsa_encrypt(self, args):
+        '''
+        Usage: rsa_encrypt N E MESSAGE
+        '''
+        args = list(parse_args(args))
+        n = int(args.pop(0))
+        e = int(args.pop(0))
+        result = cryptography.rsa_encrypt(n, e, *args)
+        print(result)
+
+    @do_help_on_error
+    def do_rsa_decrypt(self, args):
+        '''
+        Usage: rsa_decrypt N E MESSAGE
+        '''
+        args = list(map(int, parse_args(args)))
+        result = cryptography.rsa_decrypt(*args)
+        print(result)
+
 
 def parse_args(args):
     # tuple cause we don't want the arguments to be mutated :)
