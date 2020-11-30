@@ -56,15 +56,17 @@ def get_distance(codeword1, codeword2, *args, **kwargs):
     return sum(a != b for a, b in zip(codeword1, codeword2))
 
 
-def eval_congruence(a, m, *args, b=None, **kwargs):
+def eval_congruence(a, m, *args, b=None, silent=False, **kwargs):
     for i in range(m):
         congruence = (a * i) % m
         if b is not None:
             if congruence == b:
-                print(f"{a}*{i} ≡ {congruence} (mod {m})")
+                if not silent:
+                    print(f"{a}*{i} ≡ {congruence} (mod {m})")
                 return i
         else:
-            print(f"{a}*{i} ≡ {congruence} (mod {m})")
+            if not silent:
+                print(f"{a}*{i} ≡ {congruence} (mod {m})")
     return None
 
 

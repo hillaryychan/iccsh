@@ -48,9 +48,10 @@ def get_modular_units(m):
     return list(filter(lambda a: is_unit(a, m), range(m)))
 
 
-def find_eulers_phi(m):
+def find_eulers_phi(m, *args, silent=False, **kwargs):
     units = get_modular_units(m)
-    print('{' + ', '.join(map(str, units)) + '}')
+    if not silent:
+        print('{' + ', '.join(map(str, units)) + '}')
     return len(units)
 
 

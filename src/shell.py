@@ -15,7 +15,8 @@ from src.ch3 import (kraft_mcmillan,
 from src.ch4 import information_theory
 from src.ch5 import (number_theory,
                      primality_testing)
-from src.ch7 import (ciphers)
+from src.ch7 import (ciphers,
+                     cryptography)
 
 
 def is_decimal(value):
@@ -424,7 +425,7 @@ class ICCShell(cmd.Cmd):
         That is the number of elements in set {a ∈ Z_m: gcd(a, m) = 1}
         '''
         args = list(map(int, parse_args(args)))
-        a = args.pop()
+        a = args.pop(0)
         result = number_theory.find_eulers_phi(a, *args)
         print(f"ϕ({a}) = {result}")
 
@@ -671,6 +672,19 @@ class ICCShell(cmd.Cmd):
         '''
         result = ciphers.estimate_key_len(*parse_args(args))
         print(f"r ≈ {result}")
+
+    @do_help_on_error
+    def do_rsa_exponent_key(self, args):
+        '''
+        Usage: rsa_exponent_key N E
+
+        Find the corresponding exponent given N and the other exponent key
+        That is, if we have the encryption exponent, find decryption exponent
+        and vice versa.
+        '''
+        args = list(map(int, parse_args(args)))
+        result = cryptography.rsa_exponent_key(*args)
+        print(f"d = {result}")
 
 
 def parse_args(args):
