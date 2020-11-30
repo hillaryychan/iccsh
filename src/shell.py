@@ -115,6 +115,21 @@ class ICCShell(cmd.Cmd):
         args = list(map(int, parse_args(args)))
         target = args.pop(2) if len(args) > 2 else None
         result = error_correction.eval_congruence(*args, b=target)
+        if target:
+            if result is not None:
+                print(f"x is {result}")
+            else:
+                print("There is no solution.")
+
+    @do_help_on_error
+    def do_modular_inverse(self, args):
+        '''
+        Usage: modular_inverse a m
+
+        Find n where n ≡ a^-1 (mod m)
+        '''
+        args = list(map(int, parse_args(args)))
+        result = error_correction.eval_congruence(*args, b=1)
         if result is not None:
             print(f"x is {result}")
         else:
