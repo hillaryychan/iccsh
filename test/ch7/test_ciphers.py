@@ -41,6 +41,10 @@ def test_plaintext_feedback_decode():
     expected = 'THIS IS AN EXAMPLE'
     assert plaintext_feedback_decode('CODE', *message) == expected
 
+    message = ['IRDBHQIPVPBVKBRQ']
+    expected = 'IAMTHEPIRATEKING'
+    assert plaintext_feedback_decode('ARR', *message) == expected
+
 
 def test_ciphertext_feedback_encode():
     message = ['THIS', 'IS', 'AN', 'EXAMPLE']
