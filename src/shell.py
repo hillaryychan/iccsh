@@ -676,7 +676,7 @@ class ICCShell(cmd.Cmd):
     @do_help_on_error
     def do_rsa_exponent_key(self, args):
         '''
-        Usage: rsa_exponent_key N E
+        Usage: rsa_exponent_key N EXPONENT
 
         Find the corresponding exponent given N and the other exponent key
         That is, if we have the encryption exponent, find decryption exponent
@@ -689,21 +689,42 @@ class ICCShell(cmd.Cmd):
     @do_help_on_error
     def do_rsa_encrypt(self, args):
         '''
-        Usage: rsa_encrypt N E MESSAGE
+        Usage: rsa_encrypt N EXPONENT MESSAGE
         '''
         args = list(parse_args(args))
         n = int(args.pop(0))
         e = int(args.pop(0))
-        result = cryptography.rsa_encrypt(n, e, *args)
+        result = cryptography.rsa_encrypt_scheme(1, n, e, *args)
         print(result)
 
     @do_help_on_error
     def do_rsa_decrypt(self, args):
         '''
-        Usage: rsa_decrypt N E MESSAGE
+        Usage: rsa_decrypt N EXPONENT MESSAGE
         '''
         args = list(map(int, parse_args(args)))
-        result = cryptography.rsa_decrypt(*args)
+        result = cryptography.rsa_decrypt_scheme(1, *args)
+        print(result)
+
+    @do_help_on_error
+    def do_rsa_encrypt_scheme(self, args):
+        '''
+        Usage: rsa_encrypt_scheme SCHEME N EXPONENT MESSAGE
+        '''
+        args = list(parse_args(args))
+        scheme = int(args.pop(0))
+        n = int(args.pop(0))
+        e = int(args.pop(0))
+        result = cryptography.rsa_encrypt_scheme(scheme, n, e, *args)
+        print(result)
+
+    @do_help_on_error
+    def do_rsa_decrypt_scheme(self, args):
+        '''
+        Usage: rsa_decrypt_scheme SCHEME N EXPONENT MESSAGE
+        '''
+        args = list(map(int, parse_args(args)))
+        result = cryptography.rsa_decrypt_scheme(*args)
         print(result)
 
 
