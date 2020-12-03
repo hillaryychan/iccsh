@@ -1,4 +1,5 @@
 from collections import Counter
+from fractions import Fraction
 
 
 def shift_letter(shift, letter):
@@ -105,10 +106,9 @@ def index_of_coincidence(*messages, **kwargs):
     messages = map(lambda m: m.upper(), messages)
     message = ''.join(messages)
     message = ''.join(filter(lambda c: c.isalpha(), message))
-    msg_len = len(message)
+    n = len(message)
     freq = Counter(message).values()
-    print(Counter(message))
-    return (sum(map(lambda f: f*f, freq)) - msg_len)/(msg_len*msg_len - msg_len)
+    return Fraction(sum(map(lambda f: f*f, freq)) - n)/(n*n - n)
 
 
 def estimate_key_len(*messages, **kwargs):

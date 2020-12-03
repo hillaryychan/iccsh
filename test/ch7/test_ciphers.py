@@ -1,3 +1,4 @@
+from fractions import Fraction
 from math import isclose
 from src.ch7.ciphers import (shift_cipher,
                              vigenere_cipher,
@@ -61,6 +62,7 @@ def test_ciphertext_feedback_decode():
 def test_incidence_of_coincidence():
     message = ['KMHZ', 'HTS,' 'Q', 'OWWM', 'APHB', 'FWB', 'KYCZP',
                'APPA', 'LFHU', 'HVK', 'MURVGLL', 'APL', 'KVCYAL!']
+    assert index_of_coincidence(*message) == Fraction(61, 1275)
     assert isclose(index_of_coincidence(*message), 0.04784313725490196)
 
 

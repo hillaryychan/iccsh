@@ -661,7 +661,7 @@ class ICCShell(cmd.Cmd):
         Calculate the index of coincidence of a given message.
         '''
         result = ciphers.index_of_coincidence(*parse_args(args))
-        print(f"index of coincidence is {result}")
+        print(f"index of coincidence is {result} ({float(result)})")
 
     @do_help_on_error
     def do_estimate_key_length(self, args):
