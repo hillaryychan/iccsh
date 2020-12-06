@@ -15,6 +15,7 @@ from src.ch3 import (kraft_mcmillan,
 from src.ch4 import information_theory
 from src.ch5 import (number_theory,
                      primality_testing)
+from src.ch6 import algebraic_coding
 from src.ch7 import (ciphers,
                      cryptography)
 
@@ -538,6 +539,17 @@ class ICCShell(cmd.Cmd):
         n = args.pop(0)
         (a, b) = primality_testing.fermat_factorise(n, *args)
         print(f"{n} = {a}*{b}")
+
+    # Ch6. Algebraic Coding
+    @do_help_on_error
+    def do_cyclotomic_set(self, args):
+        '''
+        Usage: cyclotomic_set BASE POWER [K_BASE...]
+        '''
+        args = list(map(int, parse_args(args)))
+        result = algebraic_coding.cyclotomic_set(*args)
+        for k, v in result.items():
+            print(k, v)
 
     # Ch7. Cryptography
 
