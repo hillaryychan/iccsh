@@ -1,5 +1,3 @@
-from itertools import product
-
 from src.ch2.error_correction import eval_congruence
 from src.ch5.number_theory import find_eulers_phi
 
@@ -48,18 +46,17 @@ def rsa_decrypt_scheme(scheme, n, d, *codes, **kwargs):
 
     decrypted = map(lambda x: x**d % n, codes)
 
-    def decode(value):
-        def equals_value(combination):
-            return sum(map(lambda pair: 29**pair[0]*pair[1],
-                       enumerate(combination[::-1]))) == value
-
-        combinations = product(list(range(29)), repeat=scheme)
-        return next((x for x in combinations if equals_value(x)), None)
+    def get_encodings(value):
+        encodings = [value % 29]
+        for i in range(1, scheme):
+            encoding_sum = sum(map(lambda pair: 29**pair[0]*pair[1],
+                                   enumerate(encodings[::-1])))
+            encodings.append(int((value - encoding_sum)/29**i) % 29)
+        return encodings[::-1]
 
     msg = ''
     for value in decrypted:
-        decoded_values = decode(value)
-        if decoded_values is not None:
-            msg += ''.join(map(lambda x: RSA_STD_ENCODING[x], decoded_values))
+        encodings = get_encodings(value)
+        msg += ''.join(map(lambda x: RSA_STD_ENCODING[x], encodings))
 
     return msg
