@@ -30,9 +30,14 @@ def solve_bezout_identity(d, a, b, *args, **kwargs):
     eqns.pop()  # remove final eqn with remainder 0
     # initialise bezout's identity equation
     init = eqns.pop()
-    bezout = [init[0], 1, init[1], -1*init[2]]
+    bezout = [init[0], 1, init[1], -1 * init[2]]
     for eqn in reversed(eqns):
-        bezout[0], bezout[1], bezout[2], bezout[3] = eqn[0], bezout[3], bezout[0], bezout[1] + bezout[3]*-1*eqn[2]  # noqa: E501
+        bezout[0], bezout[1], bezout[2], bezout[3] = (
+            eqn[0],
+            bezout[3],
+            bezout[0],
+            bezout[1] + bezout[3] * -1 * eqn[2],
+        )  # noqa: E501
 
     x, y = bezout[1], bezout[3]
     if max(a, b) == b:
@@ -45,19 +50,20 @@ def get_modular_units(m):
     def is_unit(a, m):
         gcd, _ = calculate_gcd(a, m)
         return gcd == 1
+
     return list(filter(lambda a: is_unit(a, m), range(m)))
 
 
 def find_eulers_phi(m, *args, silent=False, **kwargs):
     units = get_modular_units(m)
     if not silent:
-        print('{' + ', '.join(map(str, units)) + '}')
+        print("{" + ", ".join(map(str, units)) + "}")
     return len(units)
 
 
 def find_order(m, a, *args, **kwargs):
     for i in range(1, m):
-        if a**i % m == 1:
+        if a ** i % m == 1:
             return i
 
     return -1
@@ -68,4 +74,5 @@ def find_primitive_elements(n):
 
     def is_primitive(a, n):
         return find_order(n, a) == len(units)
+
     return list(filter(lambda a: is_primitive(a, n), units))

@@ -12,6 +12,7 @@ pytest = "*"
 jedi = "*"
 colorama = "*"
 numpy = "*"
+black = "*"
 
 [requires]
 python_version = "3.6"

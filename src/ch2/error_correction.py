@@ -1,11 +1,11 @@
-'''
+"""
 Function implementations of algorithms from
 MATH3411 Chapter 2 Error Correction and Detection
-'''
+"""
 
 
 def get_isbn_digits(number):
-    number = list(filter(lambda x: x.isdigit() or x == 'X', number))
+    number = list(filter(lambda x: x.isdigit() or x == "X", number))
     return list(map(lambda x: int(x) if x.isdigit() else 10, number))
 
 
@@ -38,7 +38,7 @@ def isbn_fix(number, pos, *args, **kwargs):
     correct_digit = -1
     for i in range(11):
         if (val + i * pos) % 11 == 0:
-            correct_digit = i if i != 10 else 'X'
+            correct_digit = i if i != 10 else "X"
             break
 
     return correct_digit
@@ -47,7 +47,7 @@ def isbn_fix(number, pos, *args, **kwargs):
 def get_weight(codewords, *args, **kwargs):
     weights = []
     for codeword in codewords:
-        digits = list(filter(lambda x: x.isdigit() and x != '0', codeword))
+        digits = list(filter(lambda x: x.isdigit() and x != "0", codeword))
         weights.append(len(digits))
     return weights
 
@@ -78,6 +78,6 @@ def add_codewords(radix, *args, **kwargs):
 
     for codeword in args:
         print(codeword)
-    print('-'*len(sum_digits))
+    print("-" * len(sum_digits))
 
-    return ''.join(sum_digits)
+    return "".join(sum_digits)

@@ -1,9 +1,11 @@
 import pytest
-from src.ch5.primality_testing import (is_prime,
-                                       is_pseudo_prime,
-                                       generate_primes,
-                                       is_prime_lucas_test,
-                                       fermat_factorise)
+from src.ch5.primality_testing import (
+    is_prime,
+    is_pseudo_prime,
+    generate_primes,
+    is_prime_lucas_test,
+    fermat_factorise,
+)
 
 
 def test_is_prime():

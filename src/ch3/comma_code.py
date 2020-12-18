@@ -1,33 +1,37 @@
-'''
+"""
 Function implementations of the comma code from
 MATH3411 Chapter 3 Compression Coding
-'''
+"""
 
 
 def check_comma_message_symbols(length, message):
     gt_length = list(filter(lambda s: int(s) > (length + 1), message))
     if gt_length:
-        raise ValueError((f"message '{message}' contains symbols which can be "
-                          f"encoded by a comma code of length {length}"))
+        raise ValueError(
+            (
+                f"message '{message}' contains symbols which can be "
+                f"encoded by a comma code of length {length}"
+            )
+        )
 
 
 def generate_comma_code(length):
     code = []
-    for i in range(length+1):
+    for i in range(length + 1):
         if i == 0:
-            code.append('0')
+            code.append("0")
         elif i == length:
-            code.append('1'*i)
+            code.append("1" * i)
         else:
-            code.append('1'*i+'0')
+            code.append("1" * i + "0")
     return code
 
 
 def comma_encode(length, message, *args, **kwargs):
-    message = list(filter(lambda s: s, message.split('s')))
+    message = list(filter(lambda s: s, message.split("s")))
     check_comma_message_symbols(length, message)
     code = generate_comma_code(length)
-    encoded = ''
+    encoded = ""
     for s in message:
         index = int(s) - 1
         encoded += code[index]
@@ -43,9 +47,9 @@ def find_comma_prefix(message, code):
 
 def comma_decode(length, message, *args, **kwargs):
     code = generate_comma_code(length)
-    decoded = ''
+    decoded = ""
     while len(message) > 0:
         prefix = find_comma_prefix(message, code)
-        message = message[len(code[prefix]):]
+        message = message[len(code[prefix]) :]
         decoded += f"s{prefix+1}"
     return decoded
