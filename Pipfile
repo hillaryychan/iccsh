@@ -4,15 +4,15 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+jedi = "*"
 flake8 = "*"
 pylint = "*"
+black = "*"
 
 [packages]
 pytest = "*"
-jedi = "*"
 colorama = "*"
 numpy = "*"
-black = "*"
 
 [requires]
 python_version = "3.6"
