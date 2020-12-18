@@ -20,7 +20,23 @@ def test_rsa_decrypt_scheme():
     assert rsa_decrypt_scheme(1, 551, 55, 302, 241) == "OK"
     assert (
         rsa_decrypt_scheme(
-            1, 391, 3, 366, 14, 126, 126, 3, 249, 258, 126, 148, 30, 45, 366, 58, 30
+            1,
+            391,
+            3,
+            366,
+            14,
+            126,
+            126,
+            3,
+            249,
+            258,
+            126,
+            148,
+            30,
+            45,
+            366,
+            58,
+            30,
         )
         == "MERRYCHRISTMAS"
     )

@@ -21,7 +21,9 @@ def test_add_codewords_with_two_codewords():
 
 def test_add_codewords_with_multiple_codewords():
     assert (
-        add_codewords("2", "10111110", "11010110", "11100010", "01110010", "01111000")
+        add_codewords(
+            "2", "10111110", "11010110", "11100010", "01110010", "01111000"
+        )
         == "10000000"
     )
     assert add_codewords("3", "211021", "202202", "211010") == "021200"

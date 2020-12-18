@@ -41,7 +41,9 @@ def rsa_exponent_key(n, e, *args, **kwargs):
 
 def _rsa_encrypt(n, e, message, *args, **kwargs):
     message = message.upper()
-    return list(map(lambda char: RSA_STD_ENCODING.index(char) ** e % n, message))
+    return list(
+        map(lambda char: RSA_STD_ENCODING.index(char) ** e % n, message)
+    )
 
 
 def _rsa_decrypt(n, d, *codes, **kwargs):
@@ -60,7 +62,9 @@ def rsa_encrypt_scheme(scheme, n, e, message, *args, **kwargs):
         if len(items) != scheme:
             items.extend([RSA_STD_ENCODING.index(" ")] * (scheme - len(items)))
 
-        value = sum(map(lambda pair: 29 ** pair[0] * pair[1], enumerate(items[::-1])))
+        value = sum(
+            map(lambda pair: 29 ** pair[0] * pair[1], enumerate(items[::-1]))
+        )
         encrypted.append(value ** e % n)
         indexes = indexes[scheme:]
 
@@ -77,7 +81,10 @@ def rsa_decrypt_scheme(scheme, n, d, *codes, **kwargs):
         encodings = [value % 29]
         for i in range(1, scheme):
             encoding_sum = sum(
-                map(lambda pair: 29 ** pair[0] * pair[1], enumerate(encodings[::-1]))
+                map(
+                    lambda pair: 29 ** pair[0] * pair[1],
+                    enumerate(encodings[::-1]),
+                )
             )
             encodings.append(int((value - encoding_sum) / 29 ** i) % 29)
         return encodings[::-1]

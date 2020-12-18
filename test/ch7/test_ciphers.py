@@ -45,7 +45,9 @@ def test_vigenere_cipher():
         "APL",
         "KVCYAL!",
     ]
-    expected = "DEAR ALL, I HOPE THAT YOU CRUSH " "THIS EXAM AND ENJOYED THE COURSE!"
+    expected = (
+        "DEAR ALL, I HOPE THAT YOU CRUSH " "THIS EXAM AND ENJOYED THE COURSE!"
+    )
     assert vigenere_cipher("HI", *message, decode=True) == expected
 
 

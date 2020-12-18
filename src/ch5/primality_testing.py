@@ -42,7 +42,9 @@ def is_prime_lucas_test(n, a, *args, **kwargs):
     if a ** (n - 1) % n != 1:
         return False
 
-    dividing_primes = list(filter(lambda p: (n - 1) % p == 0, generate_primes(n)))
+    dividing_primes = list(
+        filter(lambda p: (n - 1) % p == 0, generate_primes(n))
+    )
     for prime in dividing_primes:
         if a ** ((n - 1) / prime) % n == 1:
             return False

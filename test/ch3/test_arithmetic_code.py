@@ -49,7 +49,9 @@ def test_arithmetic_encode_with_extra_symbols():
 
 
 def test_arithmetic_decode():
-    message = arithmetic_decode(["a", "b", "c", "."], [0.4, 0.3, 0.2, 0.1], 0.12345)
+    message = arithmetic_decode(
+        ["a", "b", "c", "."], [0.4, 0.3, 0.2, 0.1], 0.12345
+    )
     assert message == "aacac."
 
     message = arithmetic_decode(["a", "b", "."], [0.8, 0.1, 0.1], 0.7008)

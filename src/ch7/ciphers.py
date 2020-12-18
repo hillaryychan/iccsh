@@ -60,7 +60,9 @@ def vigenere_cipher(key, *messages, decode=False, **kwargs):
     shifts = list(map(get_alpha_pos, key))
     if decode:
         shifts = list(map(lambda s: -s, shifts))
-    return "".join(map(lambda x: vigenere_shift(shifts, x), alpha_enumerate(message)))
+    return "".join(
+        map(lambda x: vigenere_shift(shifts, x), alpha_enumerate(message))
+    )
 
 
 def plaintext_feedback_encode(key, *messages, **kwargs):
@@ -116,4 +118,6 @@ def estimate_key_len(*messages, **kwargs):
     message = "".join(filter(lambda c: c.isalpha(), message))
     msg_len = len(message)
     ioc = index_of_coincidence(message)
-    return (0.0273 * msg_len) / ((msg_len - 1) * ioc - 0.0385 * msg_len + 0.0658)
+    return (0.0273 * msg_len) / (
+        (msg_len - 1) * ioc - 0.0385 * msg_len + 0.0658
+    )

@@ -14,7 +14,14 @@ def test_get_weight_with_multiple_codewords():
     codewords = ["00011010", "10100001", "11111100"]
     assert get_weight(codewords) == [3, 3, 6]
 
-    codewords = ["0110120", "0020210", "11211001", "1110000", "2102102", "0001110"]
+    codewords = [
+        "0110120",
+        "0020210",
+        "11211001",
+        "1110000",
+        "2102102",
+        "0001110",
+    ]
     assert get_weight(codewords) == [4, 3, 6, 3, 5, 3]
 
 

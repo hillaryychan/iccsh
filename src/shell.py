@@ -256,7 +256,9 @@ class ICCShell(cmd.Cmd):
 
         Decode a message encoded with the LZ78 algorithm.
         """
-        outputs = map(lambda s: re.sub(r"([a-zA-Z])", r"'\1'", s), parse_args(args))
+        outputs = map(
+            lambda s: re.sub(r"([a-zA-Z])", r"'\1'", s), parse_args(args)
+        )
         outputs = list(map(literal_eval, outputs))
         result = dictionary_code.lz78_decode(outputs)
         print(f"message is '{result}'")
