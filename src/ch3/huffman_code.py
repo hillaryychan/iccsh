@@ -1,7 +1,7 @@
-'''
+"""
 Function implementations of Huffman code algorithms from
 MATH3411 Chapter 3 Compression Coding
-'''
+"""
 
 from fractions import Fraction
 from math import isclose
@@ -28,7 +28,6 @@ def calculate_huffman_avg_len(radix, probabilities, *args, **kwargs):
 
 
 class Node:
-
     def __init__(self, probability, source_no=0):
         self.probability = probability
         self.value = None
@@ -49,10 +48,12 @@ class Node:
         return self.__add__(other)
 
     def __str__(self):
-        return (f"p={self.probability}, "
-                f"value={self.value}, "
-                f"is_source={self.source_no}, "
-                f"parents={self.parents}")
+        return (
+            f"p={self.probability}, "
+            f"value={self.value}, "
+            f"is_source={self.source_no}, "
+            f"parents={self.parents}"
+        )
 
     def __repr__(self):
         return self.__str__()
@@ -103,6 +104,6 @@ def generate_huffman(radix, probabilities):
                 break
 
     codes = []
-    evaluate_nodes(root, '', codes)
+    evaluate_nodes(root, "", codes)
     codes.sort()
     return codes[:no_symbols]

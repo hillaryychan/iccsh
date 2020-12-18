@@ -1,8 +1,10 @@
 from fractions import Fraction
-from src.ch3.kraft_mcmillan import (eval_kraft_mcmillan,
-                                    eval_kraft_mcmillan_length,
-                                    eval_kraft_mcmillan_min_length,
-                                    eval_kraft_mcmillan_radix)
+from src.ch3.kraft_mcmillan import (
+    eval_kraft_mcmillan,
+    eval_kraft_mcmillan_length,
+    eval_kraft_mcmillan_min_length,
+    eval_kraft_mcmillan_radix,
+)
 
 
 def test_kraft_mcmillan():
