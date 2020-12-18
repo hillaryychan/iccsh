@@ -5,7 +5,6 @@ name = "pypi"
 
 [packages]
 numpy = "*"
-pytest = "*"
 colorama = "*"
 
 [dev-packages]
@@ -14,6 +13,7 @@ pylint = "*"
 flake8 = "*"
 importlib-metadata = "<3"
 black = "*"
+pytest = "*"
 
 [requires]
 python_version = "3.6"
