@@ -27,7 +27,7 @@ def isbn_fix(number, pos, *args, **kwargs):
     if len(digits) != 10:
         raise ValueError(f"'{number}' is not an ISBN-10 number")
     pos = int(pos)
-    if not (1 <= pos <= 10):
+    if not 1 <= pos <= 10:
         raise ValueError(f"Can't have error in position {pos}")
 
     val = 0

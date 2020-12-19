@@ -24,7 +24,7 @@ def validate_arithmetic_symbols(source, probabilities):
 def arithmetic_encode(source, probabilities, message, *args, **kwargs):
     validate_arithmetic_symbols(source, probabilities)
     message_symbols = set(message)
-    if not (all(symbol in source for symbol in message_symbols)):
+    if not all(symbol in source for symbol in message_symbols):
         raise ValueError(
             (
                 f"Message '{message}' contains symbol(s) not in "
@@ -70,7 +70,7 @@ def arithmetic_decode(source, probabilities, value, *args, **kwargs):
 
     message = ""
     index = find_interval(value, intervals)
-    while index != (len(source) - 1) and index != -1:
+    while index not in (len(source) - 1, -1):
         message += source[index]
         # scale value with value = (value - start) / interval width
         value = (value - sum(probabilities[:index])) / probabilities[index]

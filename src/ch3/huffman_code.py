@@ -99,7 +99,7 @@ def generate_huffman(radix, probabilities):
             if new_node < node:
                 nodes = nodes[:index] + [new_node] + nodes[index:]
                 break
-            elif index == len(nodes) - 1:
+            if index == len(nodes) - 1:
                 nodes.append(new_node)
                 break
 
