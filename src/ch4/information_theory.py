@@ -1,4 +1,4 @@
-from math import log, ceil
+from math import ceil, log
 
 
 def calculate_entropy(radix, probabilities, *args, **kwargs):

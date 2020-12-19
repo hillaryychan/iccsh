@@ -1,9 +1,9 @@
 from src.ch5.number_theory import (
     calculate_gcd,
-    solve_bezout_identity,
     find_eulers_phi,
     find_order,
     find_primitive_elements,
+    solve_bezout_identity,
 )
 
 

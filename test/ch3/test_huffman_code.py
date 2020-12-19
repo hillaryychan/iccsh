@@ -1,6 +1,7 @@
+from fractions import Fraction
+
 import pytest
 
-from fractions import Fraction
 from src.ch3.huffman_code import calculate_huffman_avg_len, generate_huffman
 
 

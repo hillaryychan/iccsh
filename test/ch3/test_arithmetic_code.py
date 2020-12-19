@@ -1,10 +1,10 @@
 import pytest
-
 from numpy.testing import assert_almost_equal
+
 from src.ch3.arithmetic_code import (
-    validate_arithmetic_symbols,
-    arithmetic_encode,
     arithmetic_decode,
+    arithmetic_encode,
+    validate_arithmetic_symbols,
 )
 
 

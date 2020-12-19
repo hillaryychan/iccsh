@@ -1,18 +1,18 @@
 import cmd
 import re
-
 from ast import literal_eval
-from colorama import Fore
 from fractions import Fraction
 from functools import wraps
 
+from colorama import Fore
+
 from src.ch2 import error_correction
 from src.ch3 import (
-    kraft_mcmillan,
+    arithmetic_code,
     comma_code,
     dictionary_code,
-    arithmetic_code,
     huffman_code,
+    kraft_mcmillan,
 )
 from src.ch4 import information_theory
 from src.ch5 import number_theory, primality_testing

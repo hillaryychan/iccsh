@@ -1,4 +1,5 @@
 from math import ceil, sqrt
+
 from src.ch5.number_theory import calculate_gcd
 
 

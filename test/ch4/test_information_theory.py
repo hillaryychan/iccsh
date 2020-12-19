@@ -3,8 +3,8 @@ from math import isclose
 
 from src.ch4.information_theory import (
     calculate_entropy,
-    shannon_fano_table,
     calculate_shannon_fano_avg_len,
+    shannon_fano_table,
 )
 
 

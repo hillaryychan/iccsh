@@ -1,4 +1,4 @@
-from src.ch3.dictionary_code import lz78_encode, lz78_decode
+from src.ch3.dictionary_code import lz78_decode, lz78_encode
 
 
 def test_lz78_encode():

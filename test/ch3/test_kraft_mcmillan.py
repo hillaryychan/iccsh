@@ -1,4 +1,5 @@
 from fractions import Fraction
+
 from src.ch3.kraft_mcmillan import (
     eval_kraft_mcmillan,
     eval_kraft_mcmillan_length,

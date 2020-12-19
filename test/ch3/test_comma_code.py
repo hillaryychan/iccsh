@@ -1,4 +1,4 @@
-from src.ch3.comma_code import comma_encode, comma_decode
+from src.ch3.comma_code import comma_decode, comma_encode
 
 
 def test_comma_encode():

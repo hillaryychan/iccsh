@@ -1,10 +1,11 @@
 import pytest
+
 from src.ch5.primality_testing import (
-    is_prime,
-    is_pseudo_prime,
-    generate_primes,
-    is_prime_lucas_test,
     fermat_factorise,
+    generate_primes,
+    is_prime,
+    is_prime_lucas_test,
+    is_pseudo_prime,
 )
 
 
