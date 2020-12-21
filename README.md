@@ -4,7 +4,7 @@
 
 ## Requirements
 
-* Python3
+* Python3 (specifically Python 3.8)
 * [`pipenv`](https://pypi.org/project/pipenv/)
 
 ## Setup
