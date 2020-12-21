@@ -37,7 +37,7 @@ def solve_bezout_identity(d, a, b, *args, **kwargs):
             bezout[3],
             bezout[0],
             bezout[1] + bezout[3] * -1 * eqn[2],
-        )  # noqa: E501
+        )
 
     x, y = bezout[1], bezout[3]
     if max(a, b) == b:

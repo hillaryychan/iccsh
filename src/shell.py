@@ -42,7 +42,7 @@ def do_help_on_error(func):
 
 class ICCShell(cmd.Cmd):
     intro = (
-        "Welcome to the MATH3411 Shell.\n"
+        "Welcome to iccsh.\n"
         'Type "help" or "?" to list commands. '
         'Type "exit" or ctrl-d to exit.'
     )
@@ -50,14 +50,14 @@ class ICCShell(cmd.Cmd):
 
     def do_exit(self, args):
         """
-        Exit MATH3411 shell.
+        Exit iccsh.
         """
         print()
         return True
 
     def do_EOF(self, args):
         """
-        Exit MATH3411 shell.
+        Exit icssh.
         """
         return self.do_exit(args)
 

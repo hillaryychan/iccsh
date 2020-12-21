@@ -1,8 +1,3 @@
-"""
-Function implementations of Huffman code algorithms from
-MATH3411 Chapter 3 Compression Coding
-"""
-
 from fractions import Fraction
 from math import isclose
 

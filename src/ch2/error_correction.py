@@ -1,9 +1,3 @@
-"""
-Function implementations of algorithms from
-MATH3411 Chapter 2 Error Correction and Detection
-"""
-
-
 def get_isbn_digits(number):
     number = list(filter(lambda x: x.isdigit() or x == "X", number))
     return list(map(lambda x: int(x) if x.isdigit() else 10, number))

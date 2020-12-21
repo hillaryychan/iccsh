@@ -1,6 +1,15 @@
 # iccsh
 
-`iccsh` for **Information Codes and Ciphers Shell** (yes I know, what an ugly name, I don't even know how to pronounce it) is a shell to run algorithms from MATH3411.
+`iccsh` for **Information Codes and Ciphers Shell**. Yes I know, what an ugly name. I don't even know how to pronounce it. Let's just say it's "itch".
+
+`iccsh`is a shell to run common algorithms for:
+
+* error detecting and correcting codes
+* compression codes
+* information theory
+* algebra number theory
+* algebraic coding
+* cryptography
 
 ## Requirements
 

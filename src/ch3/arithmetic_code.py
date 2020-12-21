@@ -1,8 +1,3 @@
-"""
-Function implementations of arithmetic code from
-MATH3411 Chapter 3 Compression Coding
-"""
-
 from math import isclose
 
 from numpy import cumsum

@@ -1,9 +1,3 @@
-"""
-Function implementations of dictonary code lz78 from
-MATH3411 Chapter 3 Compression Coding
-"""
-
-
 def find_prefix_entry(message, dictionary):
     """
     Find the longest entry in dictionary which is a prefix of the given message

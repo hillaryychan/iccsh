@@ -1,9 +1,3 @@
-"""
-Function implementations of the comma code from
-MATH3411 Chapter 3 Compression Coding
-"""
-
-
 def check_comma_message_symbols(length, message):
     gt_length = list(filter(lambda s: int(s) > (length + 1), message))
     if gt_length:
