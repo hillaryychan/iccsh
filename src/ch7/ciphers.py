@@ -1,6 +1,8 @@
 from collections import Counter
 from fractions import Fraction
 
+from src.exceptions import IccshValueError
+
 
 def shift_letter(shift, letter):
     if not letter.isalpha():
@@ -23,7 +25,9 @@ def shift_cipher(shift, *messages, **kwargs):
 
 def get_alpha_pos(letter):
     if not letter.isalpha():
-        raise ValueError(f"get_alpha_pos: {letter} is not an alphabetical char")
+        raise IccshValueError(
+            f"get_alpha_pos: {letter} is not an alphabetical char"
+        )
 
     start = ord("a")
     if letter.isupper():

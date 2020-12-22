@@ -18,6 +18,7 @@ from src.ch4 import information_theory
 from src.ch5 import number_theory, primality_testing
 from src.ch6 import algebraic_coding
 from src.ch7 import ciphers, cryptography
+from src.exceptions import IccshValueError
 
 
 def is_decimal(value):
@@ -33,8 +34,14 @@ def do_help_on_error(func):
     def wrapper(self, *args, **kwargs):
         try:
             func(self, *args, **kwargs)
-        except Exception as exc:
-            print(f"{Fore.RED}{type(exc).__name__}: {exc}{Fore.RESET}")
+        except IccshValueError as exc:
+            print(f"        {Fore.RED}{exc}{Fore.RESET}")
+            self.do_help(func.__name__[3:])
+        except Exception:
+            print(
+                f"        {Fore.RED}Something went wrong. Please make "
+                f"sure you're using the command correctly.{Fore.RESET}"
+            )
             self.do_help(func.__name__[3:])
 
     return wrapper

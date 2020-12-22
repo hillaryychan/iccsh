@@ -1,5 +1,7 @@
 from math import floor
 
+from src.exceptions import IccshValueError
+
 
 def calculate_gcd(a, b, *args, **kwargs):
     if a == 0 or b == 0:
@@ -25,7 +27,7 @@ def calculate_gcd(a, b, *args, **kwargs):
 def solve_bezout_identity(d, a, b, *args, **kwargs):
     gcd, eqns = calculate_gcd(a, b)
     if gcd != d:
-        raise ValueError(f"{d} != gcd({a}, {b})")
+        raise IccshValueError(f"{d} != gcd({a}, {b})")
 
     eqns.pop()  # remove final eqn with remainder 0
     # initialise bezout's identity equation

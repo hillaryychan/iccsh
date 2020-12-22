@@ -2,10 +2,12 @@ from math import isclose
 
 from numpy import cumsum
 
+from src.exceptions import IccshValueError
+
 
 def validate_arithmetic_symbols(source, probabilities):
     if len(source) != len(probabilities):
-        raise ValueError(
+        raise IccshValueError(
             (
                 "No. of symbols and probabilities do not match\n"
                 f"source: {source}\n"
@@ -13,14 +15,14 @@ def validate_arithmetic_symbols(source, probabilities):
             )
         )
     if not isclose(sum(probabilities), 1):
-        raise ValueError(f"Probabilities {probabilities} do not sum to 1")
+        raise IccshValueError(f"Probabilities {probabilities} do not sum to 1")
 
 
 def arithmetic_encode(source, probabilities, message, *args, **kwargs):
     validate_arithmetic_symbols(source, probabilities)
     message_symbols = set(message)
     if not all(symbol in source for symbol in message_symbols):
-        raise ValueError(
+        raise IccshValueError(
             (
                 f"Message '{message}' contains symbol(s) not in "
                 f"source symbols {source}"

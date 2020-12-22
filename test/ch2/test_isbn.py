@@ -1,6 +1,7 @@
 import pytest
 
 from src.ch2.error_correction import is_isbn, isbn_fix
+from src.exceptions import IccshValueError
 
 
 def test_is_isbn_with_valid_isbn():
@@ -24,24 +25,24 @@ def test_isbn_fix():
 
 
 def test_isbn_fix_with_non_isbn():
-    with pytest.raises(ValueError) as exc:
+    with pytest.raises(IccshValueError) as exc:
         isbn_fix("I am not an ISBN", 1)
     assert str(exc.value) == "'I am not an ISBN' is not an ISBN-10 number"
 
-    with pytest.raises(ValueError) as exc:
+    with pytest.raises(IccshValueError) as exc:
         isbn_fix("12345", 1)
     assert str(exc.value) == "'12345' is not an ISBN-10 number"
 
-    with pytest.raises(ValueError) as exc:
+    with pytest.raises(IccshValueError) as exc:
         isbn_fix("01234567890", 1)
     assert str(exc.value) == "'01234567890' is not an ISBN-10 number"
 
 
 def test_isbn_fix_with_invalid_pos():
-    with pytest.raises(ValueError) as exc:
+    with pytest.raises(IccshValueError) as exc:
         isbn_fix("5-666-15994-2", 0)
     assert str(exc.value) == "Can't have error in position 0"
 
-    with pytest.raises(ValueError) as exc:
+    with pytest.raises(IccshValueError) as exc:
         isbn_fix("5-666-15994-2", 11)
     assert str(exc.value) == "Can't have error in position 11"

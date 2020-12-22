@@ -1,11 +1,13 @@
 from fractions import Fraction
 from math import isclose
 
+from src.exceptions import IccshValueError
+
 
 def calculate_huffman_avg_len(radix, probabilities, *args, **kwargs):
     if not isclose(sum(probabilities), 1):
         probabilities = list(map(str, probabilities))
-        raise ValueError(f"Probabilities {probabilities} do not sum to 1")
+        raise IccshValueError(f"Probabilities {probabilities} do not sum to 1")
 
     # add dummy probabilities
     if radix > 2:
@@ -68,7 +70,7 @@ def evaluate_nodes(node, child_code, source_values):
 def generate_huffman(radix, probabilities):
     if not isclose(sum(probabilities), 1):
         probabilities = list(map(str, probabilities))
-        raise ValueError(f"Probabilities {probabilities} do not sum to 1")
+        raise IccshValueError(f"Probabilities {probabilities} do not sum to 1")
     no_symbols = len(probabilities)
 
     # add dummy probabilities

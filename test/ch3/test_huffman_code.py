@@ -3,6 +3,7 @@ from fractions import Fraction
 import pytest
 
 from src.ch3.huffman_code import calculate_huffman_avg_len, generate_huffman
+from src.exceptions import IccshValueError
 
 
 def test_calculate_avg_huffman_len():
@@ -35,7 +36,7 @@ def test_calculate_avg_huffman_len():
 
 
 def test_calculate_avg_huffman_len_with_invalid_probabilities():
-    with pytest.raises(ValueError) as exc:
+    with pytest.raises(IccshValueError) as exc:
         probabilities = [
             Fraction(4, 11),
             Fraction(2, 11),
@@ -133,7 +134,7 @@ def test_generate_huffman_random_probability_order():
 
 
 def test_generate_huffman_with_invalid_probabilities():
-    with pytest.raises(ValueError) as exc:
+    with pytest.raises(IccshValueError) as exc:
         probabilities = [
             Fraction(4, 11),
             Fraction(2, 11),

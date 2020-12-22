@@ -1,3 +1,6 @@
+from src.exceptions import IccshValueError
+
+
 def get_isbn_digits(number):
     number = list(filter(lambda x: x.isdigit() or x == "X", number))
     return list(map(lambda x: int(x) if x.isdigit() else 10, number))
@@ -19,10 +22,10 @@ def is_isbn(number, *args, **kwargs):
 def isbn_fix(number, pos, *args, **kwargs):
     digits = get_isbn_digits(number)
     if len(digits) != 10:
-        raise ValueError(f"'{number}' is not an ISBN-10 number")
+        raise IccshValueError(f"'{number}' is not an ISBN-10 number")
     pos = int(pos)
     if not 1 <= pos <= 10:
-        raise ValueError(f"Can't have error in position {pos}")
+        raise IccshValueError(f"Can't have error in position {pos}")
 
     val = 0
     for i, num in enumerate(digits, 1):

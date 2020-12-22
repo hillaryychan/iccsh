@@ -7,6 +7,7 @@ from src.ch5.primality_testing import (
     is_prime_lucas_test,
     is_pseudo_prime,
 )
+from src.exceptions import IccshValueError
 
 
 def test_is_prime():
@@ -39,6 +40,6 @@ def test_fermat_factorise():
 
 
 def test_fermat_factorise_with_even_integer():
-    with pytest.raises(ValueError) as exc:
+    with pytest.raises(IccshValueError) as exc:
         fermat_factorise(6)
     assert str(exc.value) == "6 is not odd for Fermat factorisation"

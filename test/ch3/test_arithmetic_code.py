@@ -6,10 +6,11 @@ from src.ch3.arithmetic_code import (
     arithmetic_encode,
     validate_arithmetic_symbols,
 )
+from src.exceptions import IccshValueError
 
 
 def test_validate_arithmetic_symbols_with_varying_source_and_probabilities():
-    with pytest.raises(ValueError) as exc:
+    with pytest.raises(IccshValueError) as exc:
         validate_arithmetic_symbols(["a", "."], [0.3, 0.3, 0.4])
     assert str(exc.value) == (
         "No. of symbols and probabilities do not match\n"
@@ -17,7 +18,7 @@ def test_validate_arithmetic_symbols_with_varying_source_and_probabilities():
         "probabilities: [0.3, 0.3, 0.4]"
     )
 
-    with pytest.raises(ValueError) as exc:
+    with pytest.raises(IccshValueError) as exc:
         validate_arithmetic_symbols(["a", "b", "."], [0.8, 0.2])
     assert str(exc.value) == (
         "No. of symbols and probabilities do not match\n"
@@ -27,7 +28,7 @@ def test_validate_arithmetic_symbols_with_varying_source_and_probabilities():
 
 
 def test_validate_arithmetic_symbols_with_invalid_probabilities():
-    with pytest.raises(ValueError) as exc:
+    with pytest.raises(IccshValueError) as exc:
         validate_arithmetic_symbols(["a", "b", "."], [0.3, 0.2, 0.1])
     assert str(exc.value) == "Probabilities [0.3, 0.2, 0.1] do not sum to 1"
 
@@ -41,7 +42,7 @@ def test_arithmetic_encode():
 
 
 def test_arithmetic_encode_with_extra_symbols():
-    with pytest.raises(ValueError) as exc:
+    with pytest.raises(IccshValueError) as exc:
         arithmetic_encode(["a", "."], [0.5, 0.5], "ab.")
     assert str(exc.value) == (
         "Message 'ab.' contains symbol(s) not in source " "symbols ['a', '.']"

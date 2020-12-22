@@ -1,9 +1,12 @@
+from src.exceptions import IccshValueError
+
+
 def check_comma_message_symbols(length, message):
     gt_length = list(filter(lambda s: int(s) > (length + 1), message))
     if gt_length:
-        raise ValueError(
+        raise IccshValueError(
             (
-                f"message '{message}' contains symbols which can be "
+                "Message contains symbols which can't be "
                 f"encoded by a comma code of length {length}"
             )
         )

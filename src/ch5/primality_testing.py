@@ -1,6 +1,7 @@
 from math import ceil, sqrt
 
 from src.ch5.number_theory import calculate_gcd
+from src.exceptions import IccshValueError
 
 
 def is_prime(n, *args, **kwargs):
@@ -35,7 +36,7 @@ def generate_primes(n, *args, **kwargs):
 
 def is_prime_lucas_test(n, a, *args, **kwargs):
     if not is_prime(a):
-        raise ValueError(f"{a} is not prime")
+        raise IccshValueError(f"{a} is not prime")
     gcd, _ = calculate_gcd(n, a)
     if gcd != 1:
         return False
@@ -66,7 +67,9 @@ def is_strong_pseudo_prime(n, a, *args, **kwargs):
             t = int(t)
             break
     if s == -1:
-        raise ValueError(f"Could not find values s and t s.t {n} = 2^s*t + 1")
+        raise IccshValueError(
+            f"Could not find values s and t s.t {n} = 2^s*t + 1"
+        )
 
     if a ** t % n == 1:
         return True
@@ -81,7 +84,7 @@ def is_strong_pseudo_prime(n, a, *args, **kwargs):
 
 def fermat_factorise(n, *args, **kwargs):
     if n % 2 == 0:
-        raise ValueError(f"{n} is not odd for Fermat factorisation")
+        raise IccshValueError(f"{n} is not odd for Fermat factorisation")
     start = ceil(sqrt(n))
     a, b = 0, 0
     for t in range(start, n + 1):
