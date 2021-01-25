@@ -16,7 +16,7 @@
 * Python3 (specifically Python 3.8)
 * [`pipenv`](https://pypi.org/project/pipenv/)
 
-## Setup
+## Local Development Setup
 
 1. Clone the repository
 2. Install dependencies
@@ -39,4 +39,4 @@ pipenv run pytest
 
 ## Documentation
 
-TODO or maybe not.
+See [wiki](https://github.com/hillaryychan/iccsh/wiki).
