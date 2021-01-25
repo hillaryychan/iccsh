@@ -176,7 +176,7 @@ class ICCShell(cmd.Cmd):
         """
         Usage: kraft_mcmillan_length K RADIX LENGTH [LENGTHS...]
 
-        Find the missing codeword length that satisifes the Kraft-McMillan
+        Find the missing codeword length that satisfies the Kraft-McMillan
         Theorem given the coefficient K, radix and other codeword lengths
         """
         args = parse_args(args)
@@ -194,7 +194,7 @@ class ICCShell(cmd.Cmd):
         """
         Usage: kraft_mcmillan_min_length RADIX LENGTH [LENGTHS...]
 
-        Find the minimum codeword length that satisifes the Kraft-McMillan
+        Find the minimum codeword length that satisfies the Kraft-McMillan
         Theorem given the radix and other codeword lengths
         """
         args = list(map(int, parse_args(args)))
@@ -209,8 +209,8 @@ class ICCShell(cmd.Cmd):
         """
         Usage: kraft_mcmillan_radix LENGTH [LENGTHS...]
 
-        Find the minimum radix that satisifes the Kraft-McMillan Theorem given
-        the codeowrd lengths
+        Find the minimum radix that satisfies the Kraft-McMillan Theorem given
+        the codeword lengths
         """
         args = list(map(int, parse_args(args)))
         result = kraft_mcmillan.eval_kraft_mcmillan_radix(*args)
@@ -295,7 +295,7 @@ class ICCShell(cmd.Cmd):
         Usage: arithmetic_decode SOURCE_SYMBOLS SOURCE_PROBABILITIES VALUE
 
         Decode an arithmetic encoded message using the provided source symbols
-        and their respsective probabilities.
+        and their respective probabilities.
         Note: symbols must be 1 char long.
         Note: you can use anything as a stop symbol as long as YOU know it's
         the stop symbol.
@@ -651,7 +651,7 @@ class ICCShell(cmd.Cmd):
         """
         Usage: feedback_cipher_encode KEY MESSAGE
 
-        Encode a message using the plaintext and ciphertext feeback cipher and
+        Encode a message using the plaintext and ciphertext feedback cipher and
         output the corresponding ciphertext for each encoding.
         """
         args = parse_args(args)
@@ -665,7 +665,7 @@ class ICCShell(cmd.Cmd):
         """
         Usage: feedback_cipher_decode KEY MESSAGE
 
-        Decode a message using the plaintext and ciphertext feeback cipher and
+        Decode a message using the plaintext and ciphertext feedback cipher and
         output the corresponding plaintext for each encoding.
         Useful when figuring out whether a message was encoded using plaintext
         or ciphertext feedback.
