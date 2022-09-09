@@ -6,7 +6,7 @@ name = "pypi"
 [packages]
 numpy = "*"
 colorama = "*"
-django = "1.0"
+django = "1.8.16"
 
 [dev-packages]
 jedi = "*"
