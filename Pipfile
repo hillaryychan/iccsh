@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 numpy = "*"
 colorama = "*"
+pandas = "0.4.1"
 
 [dev-packages]
 jedi = "*"
